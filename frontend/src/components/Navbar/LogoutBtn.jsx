@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from "../Core/Button";
+import Button from "../Core/Button";
 
 export default function LogoutBtn({
     className = "",

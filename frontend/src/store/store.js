@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import videoReducer from "./slices/videoSlice";
+import appLoadingReducer from "./slices/appLoadingSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,7 @@ export const store = configureStore({
         // like: () => { },
         // comment: () => { },
         // sidebar: () => { },
-        // appLoading: () => { },
+        appLoading: appLoadingReducer,
     },
 })
 
