@@ -20,8 +20,8 @@ export default function Navbar({
     const { user: appLoading } = useSelector(
         (state) => state.appLoading
     );
-    // const { isLoggedIn, user } = useSelector((state) => state.auth);
-    let isLoggedIn = true;
+    const { isLoggedIn, user } = useSelector((state) => state.auth);
+    // let isLoggedIn = true;
 
     return (
         <nav
@@ -114,7 +114,7 @@ export default function Navbar({
                                 type="button"
                                 isLarge={false}
                                 isGradientBg={true}
-                                className="h-8 w-16 rounded-md"
+                                className=" h-8 w-16 rounded-md "
                                 onClick={() => navigate("/auth/login")}
                             >Login</Button>
                             <Button
