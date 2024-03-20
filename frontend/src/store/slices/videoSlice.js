@@ -1,28 +1,129 @@
-import { createSlice } from "@reduxjs/toolkit";
+import axiosInstance from "../../helper/axiosInstance";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 
 const initialState = {
-    videos: [{
-        name: "Video 1",
-        url: "https://www.youtube.com/watch?v=4A2mWqLUpzw"
-    }]
-}
+    video: [],
+    videos: [],
+    loading: false,
+    error: null,
+    currPage: 0,
+    totalDocs: 0,
+    totalPages: 0,
+    hasNextPage: false,
+};
 
-export const videoSlice = createSlice({
+const createVideo = createAsyncThunk(
+    "/videos/create",
+    async (
+        data,
+        { rejectWithValue }
+    ) => {
+        try {
+            const res = await axiosInstance.post("/videos", data, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            return res.data;
+        } catch (error) {
+            if (!error.response) {
+                throw error;
+            }
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);
+
+const updateVideo = createAsyncThunk(
+    "/videos/update/videoId",
+    async (
+        {
+            videoId,
+            data,
+        },
+        { rejectWithValue }
+    ) => {
+        try {
+            const res = await axiosInstance.patch(`/videos/${videoId}`, data, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            return res.data;
+        } catch (error) {
+            if (!error.response) {
+                throw error;
+            }
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);
+
+const getVideoByVideoId = createAsyncThunk(
+    "/videos/update/videoId",
+    async (videoId, { rejectWithValue }) => {
+        try {
+            const res = await axiosInstance.get(`/videos/${videoId}`);
+            return res.data;
+        } catch (error) {
+            if (!error.response) {
+                throw error;
+            }
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);
+
+const getAllVideos = createAsyncThunk(
+    "/videos/getAll",
+    async (queryParams, { rejectWithValue }) => {
+        try {
+            const res = await axiosInstance.get("/videos", {
+                params: queryParams,
+            });
+            return res?.data;
+        } catch (error) {
+            if (!error.response) {
+                throw error;
+            }
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);
+
+const videoSlice = createSlice({
     name: "video",
     initialState,
     reducers: {
-        addVideo: (state, action) => {
-            const video = {
-                name: action.payload.name,
-                url: action.payload.url
-            }
-            state.videos.push(video);
+        setVideos: (state, action) => {
+            state.videos = action.payload;
         },
-        removeVideo: (state, action) => {
-            state.videos = state.videos.filter(video => video.url !== action.payload.url)
-        }
-    }
-})
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getAllVideos.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+                state.hasNextPage = false;
+            })
 
-export const { addVideo, removeVideo } = videoSlice.actions;
+            .addCase(getAllVideos.fulfilled, (state, action) => {
+                state.loading = false;
+                const newVideos = action.payload.data?.result?.docs || [];
+                state.videos =
+                    action.payload.data?.result?.page === 1
+                        ? newVideos
+                        : [...state.videos, ...newVideos];
+                state.currPage = action.payload.data?.result?.page;
+                state.totalDocs = action.payload.data?.result?.totalDocs || 0;
+                state.totalPages = action.payload.data?.result?.totalPages;
+                state.hasNextPage = action.payload.data?.result?.hasNextPage;
+            })
+
+            .addCase(getAllVideos.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Failed to fetch videos";
+            });
+    },
+});
+
 export default videoSlice.reducer;
+export const { setVideos } = videoSlice.actions;
+export { createVideo, updateVideo, getVideoByVideoId, getAllVideos };

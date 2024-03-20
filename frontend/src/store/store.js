@@ -1,19 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import videoReducer from "./slices/videoSlice";
-import appLoadingReducer from "./slices/appLoadingSlice";
+import videoSlice from "./slices/videoSlice";
+import appLoadingSlice from "./slices/appLoadingSlice";
 import authSlice from "./slices/authSlice";
+import playlistSlice from "./slices/playlistSlice";
 
 export const store = configureStore({
     reducer: {
         auth: authSlice,
         // subscription: () => { },
-        video: videoReducer,
+        video: videoSlice,
         // tweet: () => { },
-        // playlist: () => { },
+        playlist: playlistSlice,
         // like: () => { },
         // comment: () => { },
         // sidebar: () => { },
-        appLoading: appLoadingReducer,
+        appLoading: appLoadingSlice,
     },
 })
 
