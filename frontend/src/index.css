@@ -1,3 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Nunito+Sans:opsz@6..12&family=Nunito:wght@500&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,500&family=Roboto&family=Noto+Sans:wght@300;400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: #adadadaf;
+  border-radius: 4px;
+}
+
+body.dark .thin-scrollbar::-webkit-scrollbar-thumb {
+  background: #b4b4b4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cc02ff;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+  background: #b8b8b8; 
+}
