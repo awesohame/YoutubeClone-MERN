@@ -1,7 +1,7 @@
 import Layout from "../layout/Layout";
 import Tabs from "../components/Tabs";
-import VideoCreateForm from "../component/createForms/VideoCreateForm";
-import TweetCreateForm from "../component/createForms/TweetCreateForm";
+import VideoCreateForm from "../components/CreateForms/VideoCreateForm";
+import TweetCreateForm from "../components/CreateForms/TweetCreateForm";
 
 export default function Create() {
     const tabs = [

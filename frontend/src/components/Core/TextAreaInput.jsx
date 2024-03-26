@@ -1,4 +1,4 @@
-import { useState, ForwardedRef } from 'react';
+import React, { useState } from 'react';
 
 const TextAreaInput = React.forwardRef(({
     label,

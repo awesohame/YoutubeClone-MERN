@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { FaUpload } from "react-icons/fa";
 
-import Form from "../component/CoreUI/Form";
-import Input from "../component/CoreUI/Input";
-import TextAreaInput from "../component/CoreUI/TextAreaInput";
-import CheckBox from "../component/CoreUI/CheckBox";
-import useForm from "../hooks/useForm";
-import useActionHandler from "../hooks/useActionHandler";
-import { createVideo } from "../store/slices/videoSlice";
+import Form from "../Core/Form";
+import Input from "../Core/Input";
+import TextAreaInput from "../Core/TextAreaInput";
+import CheckBox from "../Core/CheckBox";
+import useForm from "../../hooks/useForm";
+import useActionHandler from "../../hooks/useActionHandler";
+import { createVideo } from "../../store/slices/videoSlice";
 import FileUpload from "../FileUpload";
 
 export default function VideoCreateForm() {

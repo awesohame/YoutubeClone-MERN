@@ -1,4 +1,5 @@
-import { useState, ForwardedRef } from "react";
+import React, { useState } from "react";
+
 
 const Input = React.forwardRef(({
     label,
@@ -9,7 +10,8 @@ const Input = React.forwardRef(({
     hidden = false,
     maxTextSize,
     ...props
-}) => {
+}, ref
+) => {
     const [characterCount, setCharacterCount] = useState(value ? value.length : 0)
 
     return (
