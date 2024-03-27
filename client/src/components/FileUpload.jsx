@@ -1,10 +1,8 @@
 import React, {
   useState,
-  ChangeEvent,
-  ForwardedRef,
-  RefObject,
   useEffect,
 } from "react";
+import { twMerge } from "tailwind-merge";
 
 import Input from "./Core/Input";
 
@@ -21,7 +19,7 @@ const FileUpload = React.forwardRef(
     },
     ref
   ) => {
-    const [filePreview, setFilePreview] = useState < string | null > (null);
+    const [filePreview, setFilePreview] = useState(null);
 
     const handleFileChange = (e) => {
       const selectedFile = e.target.files?.[0] || null;
@@ -41,10 +39,10 @@ const FileUpload = React.forwardRef(
 
     return (
       <div
-        className={
-          "w-full rounded-md object-cover overflow-hidden border-2 border-gray-200 " +
+        className={twMerge(
+          "w-full rounded-md object-cover overflow-hidden border-2 border-gray-200",
           className
-        }
+        )}
       >
         <div
           className="flex items-center justify-center h-full w-full cursor-pointer overflow-hidden"

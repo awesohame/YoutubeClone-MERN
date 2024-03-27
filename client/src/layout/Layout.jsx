@@ -2,7 +2,8 @@ import React from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { navHeight } from "../constants";
-
+import OfflineDetector from "../components/OfflineDetector";
+import { twMerge } from "tailwind-merge";
 
 export default function Layout({
     children,
@@ -34,8 +35,14 @@ export default function Layout({
         //         <OfflineDetector>{children}</OfflineDetector>
         //     </section>
         // </main>
-        <main>
-            no navbar
+        <main
+            role="main"
+            className="w-full bg-white_bg dark:bg-dark_bg"
+            id="main-container"
+        >
+            <section className={twMerge("w-full min-h-screen flex", className)}>
+                <OfflineDetector>{children}</OfflineDetector>
+            </section>
         </main>
     )
 }
