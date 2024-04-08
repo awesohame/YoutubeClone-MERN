@@ -173,10 +173,20 @@ const getChannel = createAsyncThunk(
     }
 );
 
+
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        // reducers
+        sohamRemoveUser: (state) => {
+            state.user = null;
+            state.channel = null;
+            state.isLoggedIn = false;
+            localStorage.removeItem("isLoggedIn");
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.user = action.payload?.data?.user;
@@ -225,7 +235,9 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { } = authSlice.actions;
+export const {
+    sohamRemoveUser,
+} = authSlice.actions;
 export {
     registerUser,
     loginUser,
@@ -237,4 +249,5 @@ export {
     changeCoverImage,
     getCurrentUser,
     getChannel,
+
 };
