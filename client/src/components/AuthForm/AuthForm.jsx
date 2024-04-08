@@ -22,9 +22,9 @@ export default function AuthForm({
     state,
 }) {
     const [authInputs, setAuthInputs] = useState({
-        fullName: "",
+        fullname: "",
+        username: "",
         email: "",
-        usernameOrEmail: "",
         password: "",
         avatar: undefined,
         coverImage: undefined,
@@ -99,11 +99,24 @@ export default function AuthForm({
                         <Input
                             label="Full Name"
                             type="text"
-                            value={authInputs.fullName}
+                            value={authInputs.fullname}
                             onChange={(e) =>
                                 setAuthInputs((prev) => ({
                                     ...prev,
-                                    fullName: e.target.value,
+                                    fullname: e.target.value,
+                                }))
+                            }
+                        />
+
+                        {/* username */}
+                        <Input
+                            label="User Name"
+                            type="text"
+                            value={authInputs.username}
+                            onChange={(e) =>
+                                setAuthInputs((prev) => ({
+                                    ...prev,
+                                    username: e.target.value,
                                 }))
                             }
                         />
@@ -124,13 +137,13 @@ export default function AuthForm({
                 ) : (
                     //  email or Username
                     <Input
-                        label="Username or Email"
+                        label="Email"
                         type="text"
-                        value={authInputs.usernameOrEmail}
+                        value={authInputs.email}
                         onChange={(e) =>
                             setAuthInputs((prev) => ({
                                 ...prev,
-                                usernameOrEmail: e.target.value,
+                                email: e.target.value,
                             }))
                         }
                     />

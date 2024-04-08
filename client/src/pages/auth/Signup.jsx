@@ -19,18 +19,20 @@ export default function Signup() {
     });
 
     const handleSignup = async ({
-        fullName,
+        fullname,
+        username,
         email,
         password,
         avatar,
         coverImage,
     }) => {
-        if (!fullName || !email || !password) {
+        if (!fullname || !username || !email || !password) {
             return toast.error("All fields are required!");
         }
 
         const { isSuccess } = await handleAction({
-            fullName,
+            fullname,
+            username,
             email,
             password,
             avatar,
@@ -39,7 +41,7 @@ export default function Signup() {
 
         if (isSuccess) {
             navigate("/auth/login", {
-                state: { usernameOrEmail: email, password, redirectPath: redirectPath || undefined },
+                state: { email, password, redirectPath: redirectPath || undefined },
             });
         }
     };
@@ -47,7 +49,7 @@ export default function Signup() {
     return (
         <Layout
             showNavbar={false}
-            className="bg-slate-50 dark:bg-dark_bg flex justify-center md:pt-5 pt-3 pb-7"
+            classname="bg-slate-50 dark:bg-dark_bg flex justify-center md:pt-5 pt-3 pb-7"
         >
             <AuthForm
                 type={AuthFormType.SIGNUP}
