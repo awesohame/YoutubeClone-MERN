@@ -163,7 +163,10 @@ const getChannel = createAsyncThunk(
     async (username, { rejectWithValue }) => {
         try {
             const res = await axiosInstance.get(`/users/channel/${username}`);
+<<<<<<< HEAD
+=======
             console.log(res?.data);
+>>>>>>> 724ce1b450a3441db18f5729a18c0487a01f6566
             return res?.data;
         } catch (error) {
             if (!error.response) {
