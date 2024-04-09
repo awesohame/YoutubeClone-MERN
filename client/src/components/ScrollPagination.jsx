@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import Button from "./Core/Button";
-import ErrorDialog from "./Error/ErrorDialog";
 
-export default function ScrollPagination({
+import { twMerge } from "tailwind-merge";
+import ErrorDialog from "./Error/ErrorDialog";
+import Button from "./Core/Button";
+
+const ScrollPagination = ({
     paginationType = "infinite-scroll",
-    loadNextPage = () => { },
-    refreshHandler = () => { },
+    loadNextPage,
+    refreshHandler,
     dataLength,
     loading,
     error,
@@ -16,8 +18,8 @@ export default function ScrollPagination({
     hasNextPage,
     endMessage,
     children,
-    className = "",
-}) {
+    className,
+}) => {
     const handleScroll = () => {
         const container = document.getElementById("main-container");
 
@@ -31,7 +33,7 @@ export default function ScrollPagination({
         ) {
             loadNextPage();
         }
-    }
+    };
 
     useEffect(() => {
         const container = document.getElementById("main-container");
@@ -47,13 +49,13 @@ export default function ScrollPagination({
 
     return (
         <div
-            className={
-                " w-full flex flex-col " +
-                paginationType === "infinite-scroll" &&
-                " min-h-screen pb-5 max-md:pb-24 "
-                +
+            className={twMerge(
+                "w-full flex flex-col",
+                paginationType === "infinite-scroll" && [
+                    "min-h-screen pb-5 max-md:pb-24",
+                ],
                 className
-            }
+            )}
         >
             {error ? (
                 <ErrorDialog
@@ -94,4 +96,6 @@ export default function ScrollPagination({
             )}
         </div>
     );
-}
+};
+
+export default ScrollPagination;
