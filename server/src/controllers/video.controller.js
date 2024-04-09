@@ -44,7 +44,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
 });
 
 const publishAVideo = asyncHandler(async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, isPublished } = req.body;
 
   if (!title || !description) {
     throw new ApiError(400, "Title and description are required");
@@ -66,7 +66,7 @@ const publishAVideo = asyncHandler(async (req, res) => {
     thumbnail: thumbailOnCloud?.url || "",
     duration: videoOnCloud.duration || 0,
     views: 0,
-    isPublished: true,
+    isPublished,
     owner: req.user._id,
   });
 

@@ -25,8 +25,8 @@ export default function VideoCreateForm() {
         thumbnail: null,
         isPublished: true,
     };
-    const videoFileRef = useRef < HTMLInputElement > (null);
-    const thumbnailRef = useRef < HTMLInputElement > (null);
+    const videoFileRef = useRef(null);
+    const thumbnailRef = useRef(null);
     const { formData, handleInputChange, resetForm } = useForm({
         initialFormState: initialVideoDetails,
     });
@@ -91,7 +91,7 @@ export default function VideoCreateForm() {
                                     onChange={(e) =>
                                         handleInputChange("thumbnail", e.target.files?.[0] || null)
                                     }
-                                // ref={thumbnailRef}
+                                    ref={thumbnailRef}
                                 />
                             </div>
 
@@ -103,7 +103,7 @@ export default function VideoCreateForm() {
                                     fileType="video"
                                     accept="video/mp4"
                                     onChange={(file) => handleInputChange("videoFile", file || null)}
-                                    // ref={videoFileRef}
+                                    ref={videoFileRef}
                                     className=" md:h-[245px] h-[200px] border-dashed border-blue-500 "
                                 />
 
