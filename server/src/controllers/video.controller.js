@@ -44,7 +44,6 @@ const getAllVideos = asyncHandler(async (req, res) => {
   const aggregate = userId ? Video.aggregate([{ $match: { owner: user._id } }]) : {};
 
   const result = await Video.aggregatePaginate(aggregate, options);
-  console.log(result)
   return res
     .status(200)
     .json(new ApiResponse(200, result, "Videos fetched successfully"));
