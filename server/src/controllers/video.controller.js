@@ -8,40 +8,49 @@ import { deleteOnCloudinary, uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const getAllVideos = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query;
-  // not using query
+  
   const parsedPage = parseInt(page);
   const parsedLimit = parseInt(limit);
 
-  if (isNaN(parsedPage) || isNaN(parsedLimit) || parsedPage < 1 || parsedLimit < 1) {
+  if (
+    isNaN(parsedPage) ||
+    isNaN(parsedLimit) ||
+    parsedPage < 1 ||
+    parsedLimit < 1
+  ) {
     return res
       .status(400)
       .json(new ApiResponse(400, null, "Invalid page or limit parameters."));
   }
-  // try {
-    const match = { owner: req.user._id };
-    const sort = {};
+  
+  const user = await User.findById(userId);
 
-    if (sortBy && sortType) {
-      sort[sortBy] = sortType === "desc" ? -1 : 1;
-    }
+  if (userId && !user) {
+    throw new ApiError(404, "User Not available with this userId!");
+  }
 
-    const options = {
-      page: parsedPage,
-      limit: parsedLimit,
-      sort: sort,
-    };
+  const sort = {};
 
-    const result = await Video.aggregatePaginate(match, options);
-    return res
-      .status(200)
-      .json(new ApiResponse(200, result, "Videos fetched successfully"));
+  if (sortBy && sortType) {
+    sort[sortBy] = sortType === "desc" ? -1 : 1;
+  }
 
-  // } catch (error) {
-  //   return res
-  //     .status(500)
-  //     .json(new ApiResponse(500, null, "Internal server error"));
-  // }
+  const options = {
+    page: parsedPage,
+    limit: parsedLimit,
+    sort: sort,
+  };  
+
+  const aggregate = userId ? Video.aggregate([{ $match: { owner: user._id } }]) : {};
+
+  const result = await Video.aggregatePaginate(aggregate, options);
+  console.log(result)
+  return res
+    .status(200)
+    .json(new ApiResponse(200, result, "Videos fetched successfully"));
 });
+
+
 
 const publishAVideo = asyncHandler(async (req, res) => {
   const { title, description, isPublished } = req.body;
@@ -108,18 +117,24 @@ const updateVideo = asyncHandler(async (req, res) => {
 
 const deleteVideo = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
-  const video = await Video.findById(videoId)
+  const video = await Video.findById(videoId);
 
-  const isVideoDeleted = await deleteOnCloudinary("youtubeApiClone", video.videoFile)
-  const isThumbNailDeleted = await deleteOnCloudinary("youtubeApiClone", video.thumbnail)
+  const isVideoDeleted = await deleteOnCloudinary(
+    "youtubeApiClone",
+    video.videoFile
+  );
+  const isThumbNailDeleted = await deleteOnCloudinary(
+    "youtubeApiClone",
+    video.thumbnail
+  );
 
-  if(!isVideoDeleted){
-    throw new ApiError(400, "video didnt get deleted froms the cloud")
+  if (!isVideoDeleted) {
+    throw new ApiError(400, "video didnt get deleted froms the cloud");
   }
-  if(!isThumbNailDeleted){
-    throw new ApiError(400, "thumbnail didnt get deleted froms the cloud")
+  if (!isThumbNailDeleted) {
+    throw new ApiError(400, "thumbnail didnt get deleted froms the cloud");
   }
-  
+
   const result = await Video.findByIdAndDelete(videoId);
 
   if (!result) {
@@ -131,22 +146,22 @@ const deleteVideo = asyncHandler(async (req, res) => {
 
 const togglePublishStatus = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
-    const video = await Video.findById(videoId);
-
-    if (!video) {
-      throw new ApiError(404, "Video not found || video id invalid");
-    }
-    video.isPublished = !video.isPublished;
-    await video.save()
-
-//   const video = await Video.findByIdAndUpdate(
-//     videoId,
-//     { $set: { isPublished: { $not: ["$isPublished"] } } },
-//     { new: true } 
-//   );
+  const video = await Video.findById(videoId);
 
   if (!video) {
-    throw new ApiError(404, 'Video not found');
+    throw new ApiError(404, "Video not found || video id invalid");
+  }
+  video.isPublished = !video.isPublished;
+  await video.save();
+
+  //   const video = await Video.findByIdAndUpdate(
+  //     videoId,
+  //     { $set: { isPublished: { $not: ["$isPublished"] } } },
+  //     { new: true }
+  //   );
+
+  if (!video) {
+    throw new ApiError(404, "Video not found");
   }
   return res
     .status(201)
