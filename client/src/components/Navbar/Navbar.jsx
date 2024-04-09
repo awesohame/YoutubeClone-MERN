@@ -54,7 +54,7 @@ export default function Navbar({
                         <DropdownMenu
                             triggerButton={
                                 <Avatar
-                                    url={user?.avatar?.url || ""}
+                                    url={user?.avatar || ""}
                                     fullName={user?.fullName || ""}
                                 />
                             }
@@ -62,7 +62,7 @@ export default function Navbar({
                             {/* User Information */}
                             <div className="flex gap-3">
                                 <Avatar
-                                    url={user?.avatar?.url || ""}
+                                    url={user?.avatar || ""}
                                     fullName={user?.fullName || ""}
                                 />
                                 <div className="flex flex-col min-w-[120px] max-w-[165px]">

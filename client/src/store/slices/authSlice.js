@@ -163,7 +163,7 @@ const getChannel = createAsyncThunk(
     async (username, { rejectWithValue }) => {
         try {
             const res = await axiosInstance.get(`/users/channel/${username}`);
-            console.log(res?.data);
+            // console.log(res?.data);
             return res?.data;
         } catch (error) {
             if (!error.response) {
@@ -230,7 +230,7 @@ const authSlice = createSlice({
         });
 
         builder.addCase(getChannel.fulfilled, (state, action) => {
-            state.channel = action.payload?.data?.channel;
+            state.channel = action.payload?.data;
         });
     },
 });
