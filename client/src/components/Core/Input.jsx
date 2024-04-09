@@ -15,7 +15,7 @@ const Input = React.forwardRef(({
     const [characterCount, setCharacterCount] = useState(value ? value.length : 0)
 
     return (
-        <div className={`relative w-full ${hidden ? "hidden" : ""}`}>
+        <div className={`relative w-full ${hidden ? " hidden " : ""}`}>
             <input
                 className={
                     " peer w-full h-full bg-transparent text-blue-gray-700 dark:text-slate-200 font-poppins font-normal outline outline-0 focus:outline-0 disabled:opacity-60 border-2 border-gray-200 dark:border-gray-600 focus:border-t-0 border-t-0 placeholder-shown:border-t-2 text-[17px] text-gray-700 px-3 py-3.5 rounded-sm focus:border-gray-900 dark:focus:border-white " + (maxTextSize ? " pb-6" : "")

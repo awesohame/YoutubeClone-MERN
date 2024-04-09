@@ -3,13 +3,13 @@ import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 import Layout from "./Layout";
-import useActionHandler from "../../hooks/useActionHandler";
-import { getChannel } from "../../store/slices/authSlice";
-import Avatar from "../../components/Core/Avatar";
-import Skeleton from "../../components/Skeleton";
-import SubscribeBtn from "../../components/channel/SubscribeBtn";
+import useActionHandler from "../hooks/useActionHandler";
+import { getChannel } from "../store/slices/authSlice";
+import Avatar from "../components/Core/Avatar";
+import Skeleton from "../components/Skeleton";
+import SubscribeBtn from "../components/Channel/SubscribeBtn";
 import { useSelector } from "react-redux";
-import ErrorDialog from "../../components/error/ErrorDialog";
+import ErrorDialog from "../components/Error/ErrorDialog";
 import { abbreviateNumber } from "js-abbreviation-number";
 
 export default function ChannelLayout() {
@@ -37,19 +37,19 @@ export default function ChannelLayout() {
     const channelTabsLink = [
         {
             label: "Home",
-            slug: `/c/${username}`,
+            slug: `/channel/${username}`,
         },
         {
             label: "Videos",
-            slug: `/c/${username}/videos`,
+            slug: `/channel/${username}/videos`,
         },
         {
             label: "Tweets",
-            slug: `/c/${username}/tweets`,
+            slug: `/channel/${username}/tweets`,
         },
         {
             label: "Playlists",
-            slug: `/c/${username}/playlists`,
+            slug: `/channel/${username}/playlists`,
         },
     ];
 

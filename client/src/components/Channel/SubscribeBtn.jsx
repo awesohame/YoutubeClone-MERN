@@ -20,22 +20,22 @@ export default function SubscribeBtn({
     });
 
     const handleSubscribe = async () => {
-        const { isSuccess } = await handleAction(channelId);
+        const { success } = await handleAction(channelId);
 
-        if (isSuccess) {
+        if (success) {
             setSubscribed((prev) => !prev);
         }
     };
 
     return user?._id !== channelId ? (
         <Button
-            icon={FaUserPlus}
+            icon={<FaUserPlus />}
             isLarge={false}
             disabled={isLoading}
             className="text-base text-white bg-[#f10b64] px-4 rounded-full mt-2"
             onClick={handleSubscribe}
         >
-            {isLoading ? "subscribing..." : subscribed ? "Un subscribe" : "subscribe"}
+            {isLoading ? "Subscribing..." : subscribed ? "Unsubscribe" : "Subscribe"}
         </Button>
     ) : (
         <></>

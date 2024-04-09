@@ -24,7 +24,7 @@ export default function Layout({
                 <Sidebar isHidden={!showSidebar} />
                 <main className="w-full flex-1 flex-grow" role="main">
                     <section className={" w-full min-h-full flex " + className}>
-                        {/* <OfflineDetector>{children}</OfflineDetector> */}
+                        <OfflineDetector>{children}</OfflineDetector>
                     </section>
                 </main>
             </div>

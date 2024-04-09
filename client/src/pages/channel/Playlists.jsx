@@ -7,7 +7,7 @@ import ScrollPagination from "../../components/ScrollPagination";
 import { getUserPlaylists } from "../../store/slices/playlistSlice";
 import useActionHandler from "../../hooks/useActionHandler";
 import EmptyMessage from "../../components/EmptyMessage";
-import PlaylistSkeleton from "../../components/playlist/PlaylistSkeleton";
+import PlaylistSkeleton from "../../components/Playlist/PlaylistSkeleton";
 import PlaylistCard from "../../components/Playlist/PlaylistCard";
 import CreatePlaylistDialog from "../../components/Playlist/CreatePlaylistDialog";
 import Button from "../../components/Core/Button";

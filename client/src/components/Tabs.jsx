@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Button from './Core/Button';
+import { twMerge } from 'tailwind-merge';
 
 const Tabs = ({ tabs, className = "" }) => {
     const [selectedTab, setSelectedTab] = useState(tabs[0].label);
-
+    // console.log(tabs);
     return (
         <div
             className={
@@ -24,20 +25,25 @@ const Tabs = ({ tabs, className = "" }) => {
                 ))}
             </div>
             {/* Render the selected tab component */}
-            {tabs.map(({ label, component }) => (
-                <div
-                    key={label}
-                    className={
-                        " transition-all " +
+            {tabs.map(({ label, component }) => {
+                // console.log(label, selectedTab);
+                // console.log(selectedTab === label)
+                return (
+                    <div
+                        key={label}
+                        className={twMerge(
+                            "transition-all",
                             selectedTab === label
-                            ? " block opacity-100 transform translate-y-0 "
-                            : " hidden opacity-0 transform -translate-y-2 "
-                    }
-                    style={{ transitionDuration: "0.3s" }}
-                >
-                    {component}
-                </div>
-            ))}
+                                ? "block opacity-100 transform translate-y-0"
+                                : "hidden opacity-0 transform -translate-y-2"
+                        )}
+                        style={{ transitionDuration: "0.3s" }}
+                    >
+                        {component}
+                    </div>
+                )
+            }
+            )}
         </div>
     );
 };

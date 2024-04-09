@@ -32,39 +32,41 @@ const UpdateAccountDetailsForm = () => {
     };
 
     return (
-        <Form
-            title="Account"
-            description="Make changes to your account here. Click save when you're done."
-            submitButtonLabel="Save changes"
-            isLoading={isLoading}
-            isButtonDisabled={
-                isLoading ||
-                (user?.username === formData.username &&
-                    user?.fullName === formData.fullName)
-            }
-            error={error}
-            inputs={
-                <>
-                    <Input
-                        label="Username"
-                        type="text"
-                        value={formData?.username}
-                        minLength={3}
-                        maxTextSize={20}
-                        onChange={(e) => handleInputChange("username", e.target.value)}
-                    />
-                    <Input
-                        label="Full Name"
-                        type="text"
-                        value={formData?.fullName}
-                        minLength={3}
-                        maxTextSize={20}
-                        onChange={(e) => handleInputChange("fullName", e.target.value)}
-                    />
-                </>
-            }
-            onSubmit={onSubmit}
-        />
+        <>
+            <Form
+                title="Account"
+                description="Make changes to your account here. Click save when you're done."
+                submitButtonLabel="Save changes"
+                isLoading={isLoading}
+                isButtonDisabled={
+                    isLoading ||
+                    (user?.username === formData.username &&
+                        user?.fullName === formData.fullName)
+                }
+                error={error}
+                inputs={
+                    <>
+                        <Input
+                            label="Username"
+                            type="text"
+                            value={formData?.username}
+                            minLength={3}
+                            maxTextSize={20}
+                            onChange={(e) => handleInputChange("username", e.target.value)}
+                        />
+                        <Input
+                            label="Full Name"
+                            type="text"
+                            value={formData?.fullName}
+                            minLength={3}
+                            maxTextSize={20}
+                            onChange={(e) => handleInputChange("fullName", e.target.value)}
+                        />
+                    </>
+                }
+                onSubmit={onSubmit}
+            />
+        </>
     );
 };
 

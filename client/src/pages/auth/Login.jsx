@@ -10,6 +10,10 @@ export default function Login() {
     const location = useLocation();
     const navigate = useNavigate();
     const redirectPath = location.state?.redirectPath;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 724ce1b450a3441db18f5729a18c0487a01f6566
     const { isLoading, error, handleAction } = useActionHandler({
         action: loginUser,
         toastMessages: {

@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 
-import Layout from "../../Layout/Layout";
-import UpdateAccountDetailsForm from "../../components/accountForms/UpdateAccountDetailsForm";
-import UpdatePasswordForm from "../../components/accountForms/UpdatePasswordForm";
-import Tabs from "../../components/Tabs";
-import Loader from "../../components/Loader";
+import Layout from "../layout/Layout";
+import UpdateAccountDetailsForm from "../components/AccountForms/UpdateAccountDetailsForm";
+import UpdatePasswordForm from "../components/AccountForms/UpdatePasswordForm";
+import Tabs from "../components/Tabs";
+import Loader from "../components/Loader";
 
 export default function Account() {
     const { user: appLoading } = useSelector(
@@ -15,7 +15,7 @@ export default function Account() {
         { label: "Account", component: <UpdateAccountDetailsForm /> },
         { label: "Password", component: <UpdatePasswordForm /> },
     ];
-
+    // console.log("appLoading : ", appLoading);
     return appLoading ? (
         <Loader />
     ) : (

@@ -66,7 +66,7 @@ const Sidebar = ({
             {
                 label: "Your channel",
                 icon: <FaHouseUser />,
-                slug: `/c/${user?.username}`,
+                slug: `/channel/${user?.username}`,
                 active: isLoggedIn,
             },
             {
