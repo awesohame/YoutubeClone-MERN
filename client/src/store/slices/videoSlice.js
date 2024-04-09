@@ -106,15 +106,15 @@ const videoSlice = createSlice({
 
             .addCase(getAllVideos.fulfilled, (state, action) => {
                 state.loading = false;
-                const newVideos = action.payload.data?.result?.docs || [];
+                const newVideos = action.payload.data?.docs || [];
                 state.videos =
-                    action.payload.data?.result?.page === 1
+                    action.payload.data?.page === 1
                         ? newVideos
                         : [...state.videos, ...newVideos];
-                state.currPage = action.payload.data?.result?.page;
-                state.totalDocs = action.payload.data?.result?.totalDocs || 0;
-                state.totalPages = action.payload.data?.result?.totalPages;
-                state.hasNextPage = action.payload.data?.result?.hasNextPage;
+                state.currPage = action.payload.data?.page;
+                state.totalDocs = action.payload.data?.totalDocs || 0;
+                state.totalPages = action.payload.data?.totalPages;
+                state.hasNextPage = action.payload.data?.hasNextPage;
             })
 
             .addCase(getAllVideos.rejected, (state, action) => {

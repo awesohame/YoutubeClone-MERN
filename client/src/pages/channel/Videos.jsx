@@ -9,10 +9,11 @@ import VideoSkeleton from "../../components/Video/VideoSkeleton";
 import Button from "../../components/Core/Button";
 import EmptyMessage from "../../components/EmptyMessage";
 
+// /videos?page=1&limit=10&sortBy=views&sortType=desc
 const Home = () => {
     const dispatch = useDispatch();
     const { channel } = useSelector((state) => state?.auth);
-    const [sortBy, setSortBy] = useState("createdAt");
+    const [sortBy, setSortBy] = useState("views");
     const [sortType, setSortType] = useState("desc");
     const limit = 6;
 
@@ -43,7 +44,7 @@ const Home = () => {
 
     const handleSortTypeChange = (type) => {
         setSortType(type);
-        setSortBy("createdAt");
+        setSortBy("views");
     };
     const handleSortBy = (by) => {
         setSortType("desc");

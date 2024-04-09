@@ -30,7 +30,7 @@ export default function Signup() {
             return toast.error("All fields are required!");
         }
 
-        const { isSuccess } = await handleAction({
+        const { success } = await handleAction({
             fullname,
             username,
             email,
@@ -39,9 +39,9 @@ export default function Signup() {
             coverImage,
         });
 
-        if (isSuccess) {
+        if (success) {
             navigate("/auth/login", {
-                state: { email, password, redirectPath: redirectPath || undefined },
+                state: { email, password, redirectPath: redirectPath || "/" },
             });
         }
     };
