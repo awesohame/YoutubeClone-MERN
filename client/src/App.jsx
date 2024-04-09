@@ -20,6 +20,9 @@ import Create from "./pages/Create";
 // import PlaylistVideos from "./pages/PlaylistVideos"; 
 import VideoPlayer from "./pages/VideoPlayer";
 
+//test imports
+
+
 function App() {
   const dispatch = useDispatch()
 
@@ -56,8 +59,6 @@ function App() {
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/signup" element={<Signup />} />
 
-      {/* TEST */}
-      <Route path="/VideoPlayer" element={<VideoPlayer />} />
       <Route path="/create" element={<Create />} />
       <Route path="/account" element={<Account />} />
 
@@ -67,6 +68,10 @@ function App() {
         <Route path="tweets" element={<Tweets />} />
         {/* <Route path="playlists" element={<Playlists />} /> */}
       </Route>
+
+      {/* TEST */}
+      <Route path="/watch/:videoId" element={<VideoPlayer />} />
+
 
     </Routes>
   )

@@ -15,7 +15,7 @@ export default function Account() {
         { label: "Account", component: <UpdateAccountDetailsForm /> },
         { label: "Password", component: <UpdatePasswordForm /> },
     ];
-
+    // console.log("appLoading : ", appLoading);
     return appLoading ? (
         <Loader />
     ) : (
