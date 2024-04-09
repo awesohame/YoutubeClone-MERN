@@ -74,7 +74,7 @@ export default function Navbar({
                                     </p>
                                     {/* Link to user's channel */}
                                     <Link
-                                        to="/channel"
+                                        to={`/channel/${user?.username}`}
                                         className="text-[12px] text-blue-600 dark:text-blue-500 font-[600] font-nunito_sans leading-5"
                                     >
                                         View your channel
