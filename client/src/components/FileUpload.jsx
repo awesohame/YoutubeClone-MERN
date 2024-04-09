@@ -31,11 +31,11 @@ const FileUpload = React.forwardRef(
       onChange(selectedFile);
     };
 
-    useEffect(() => {
-      if (!ref.current?.value) {
-        setFilePreview(null);
-      }
-    }, [ref.current?.value]);
+    // useEffect(() => {
+    //   if (!ref.current?.value) {
+    //     setFilePreview(null);
+    //   }
+    // }, [ref.current?.value]);
 
     return (
       <div
@@ -89,9 +89,12 @@ const FileUpload = React.forwardRef(
           onChange={handleFileChange}
           accept={accept}
           hidden={true}
-          ref={ref}
+        // ref={ref}
         />
       </div>
+      // <div className="text-white">
+      //   testing
+      // </div>
     );
   }
 );

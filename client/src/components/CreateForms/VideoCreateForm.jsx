@@ -83,7 +83,7 @@ export default function VideoCreateForm() {
                                         handleInputChange("description", e.target.value)
                                     }
                                 />
-                                {/* <Input
+                                <Input
                                     label="Thumbnail"
                                     type="file"
                                     required={true}
@@ -91,11 +91,11 @@ export default function VideoCreateForm() {
                                     onChange={(e) =>
                                         handleInputChange("thumbnail", e.target.files?.[0] || null)
                                     }
-                                    ref={thumbnailRef}
-                                /> */}
+                                // ref={thumbnailRef}
+                                />
                             </div>
 
-                            {/* <div className="lg:w-1/2 w-full flex flex-col gap-7">
+                            <div className="lg:w-1/2 w-full flex flex-col gap-7">
 
                                 <FileUpload
                                     icon={<FaUpload />}
@@ -103,8 +103,8 @@ export default function VideoCreateForm() {
                                     fileType="video"
                                     accept="video/mp4"
                                     onChange={(file) => handleInputChange("videoFile", file || null)}
-                                    ref={videoFileRef}
-                                    className="md:h-[245px] h-[200px] border-dashed border-blue-500"
+                                    // ref={videoFileRef}
+                                    className=" md:h-[245px] h-[200px] border-dashed border-blue-500 "
                                 />
 
                                 <CheckBox
@@ -114,7 +114,7 @@ export default function VideoCreateForm() {
                                         handleInputChange("isPublished", e.target.checked)
                                     }
                                 />
-                            </div> */}
+                            </div>
                         </div>
                     </>
                 }
