@@ -213,7 +213,7 @@ const authSlice = createSlice({
         });
 
         builder.addCase(getCurrentUser.fulfilled, (state, action) => {
-            state.user = action.payload?.data?.user;
+            state.user = action.payload?.data;
             state.isLoggedIn = true;
             localStorage.setItem("isLoggedIn", JSON.stringify(true));
         });
@@ -249,5 +249,4 @@ export {
     changeCoverImage,
     getCurrentUser,
     getChannel,
-
 };

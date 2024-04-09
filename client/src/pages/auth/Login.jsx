@@ -10,7 +10,7 @@ export default function Login() {
     const location = useLocation();
     const navigate = useNavigate();
     const redirectPath = location.state?.redirectPath;
-
+    console.log(redirectPath);
     const { isLoading, error, handleAction } = useActionHandler({
         action: loginUser,
         toastMessages: {
@@ -26,9 +26,8 @@ export default function Login() {
             return toast.error("All fields are required!");
         }
 
-        const { isSuccess } = await handleAction({ email, password });
-
-        if (isSuccess) {
+        const { success } = await handleAction({ email, password });
+        if (success) {
             navigate(redirectPath ? redirectPath : "/");
         }
     };
