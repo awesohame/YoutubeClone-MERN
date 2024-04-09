@@ -12,8 +12,8 @@ import EmptyMessage from "../../components/EmptyMessage";
 const Home = () => {
     const dispatch = useDispatch();
     const { channel } = useSelector((state) => state?.auth);
-    const [sortBy, setSortBy] = useState < "createdAt" | "views" > ("createdAt");
-    const [sortType, setSortType] = useState < "desc" | "acc" | null > ("desc");
+    const [sortBy, setSortBy] = useState("createdAt");
+    const [sortType, setSortType] = useState("desc");
     const limit = 6;
 
     const {
