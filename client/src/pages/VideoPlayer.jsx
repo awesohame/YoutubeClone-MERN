@@ -68,6 +68,8 @@ export default function VideoPlayer() {
         }
     }, [isFetchingVideo, video?.owner?.username]);
 
+    // console.log(channel)
+
     return (
         <Layout
             byDefaultSidebarHidden={true}
@@ -88,7 +90,7 @@ export default function VideoPlayer() {
                             <Skeleton className="md:h-[400px] sm:h-[300px] h-[250px] w-full rounded-lg" />
                         ) : (
                             <video
-                                src={video?.videoFile?.url}
+                                src={video?.videoFile}
                                 className="md:h-[400px] sm:h-[300px] w-full shadow-[10px_25px_150px_#e3e3e3] dark:shadow-[10px_25px_150px_#252525]"
                                 controls
                             />
@@ -115,8 +117,8 @@ export default function VideoPlayer() {
                                     <div className="flex items-center max-md:flex-grow max-md:w-full max-md:justify-between md:gap-4 gap-7">
                                         <div className="flex gap-2.5 items-center flex-grow truncate">
                                             <Avatar
-                                                fullName={channel?.fullName}
-                                                url={channel?.avatar?.url}
+                                                fullName={channel?.userame}
+                                                url={channel?.avatar}
                                                 className="size-10"
                                                 onClick={() =>
                                                     navigate(`/c/${channel?.username}`, {
@@ -126,7 +128,7 @@ export default function VideoPlayer() {
                                             />
                                             <div className="flex flex-col flex-grow truncate">
                                                 <h3 className="text-[16px] font-Noto_sans font-[600] text-[#0F0F0F] dark:text-[#F1F1F1] leading-4 w-full truncate">
-                                                    {channel?.fullName}
+                                                    {channel?.username}
                                                 </h3>
                                                 <p className="text-[13px] text-zinc-600 dark:text-[#AAAAAA] font-semibold leading-0 truncate">
                                                     {abbreviateNumber(channel?.subscriberCount || 0, 1)}{" "}

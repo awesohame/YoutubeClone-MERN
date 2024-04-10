@@ -14,7 +14,8 @@ const addCommentToVideo = createAsyncThunk(
         { rejectWithValue }
     ) => {
         try {
-            const res = await axiosInstance.post(`/comments/video/${videoId}`, data);
+            const res = await axiosInstance.post(`/comments/${videoId}`, data);
+            // console.log(res.data);
             return res.data;
         } catch (error) {
             if (!error.response) {
@@ -83,9 +84,10 @@ const getVideoComment = createAsyncThunk(
         { rejectWithValue }
     ) => {
         try {
-            const res = await axiosInstance.get(`/comments/video/${videoId}`, {
+            const res = await axiosInstance.get(`/comments/${videoId}`, {
                 params: queryParams,
             });
+            // console.log(res.data);
             return res.data;
         } catch (error) {
             if (!error.response) {
@@ -120,7 +122,22 @@ const commentSlice = createSlice({
     name: "comment",
     initialState,
     reducers: {},
-    extraReducers: (_builder) => { },
+    extraReducers: (builder) => {
+        builder.addCase(getVideoComment.fulfilled, (state, action) => {
+            state.videoComment = action.payload?.result;
+        });
+        builder.addCase(getVideoComment.rejected, (state, action) => {
+            state.videoComment = null;
+        });
+
+        builder.addCase(addCommentToVideo.fulfilled, (state, action) => {
+            state.videoComment = action.payload?.data;
+        }
+        );
+        builder.addCase(addCommentToVideo.rejected, (state, action) => {
+            state.videoComment = null;
+        });
+    },
 });
 
 export default commentSlice.reducer;

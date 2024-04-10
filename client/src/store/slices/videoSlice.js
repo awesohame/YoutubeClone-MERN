@@ -57,10 +57,11 @@ const updateVideo = createAsyncThunk(
 );
 
 const getVideoByVideoId = createAsyncThunk(
-    "/videos/update/videoId",
+    "/videos/videoId",
     async (videoId, { rejectWithValue }) => {
         try {
             const res = await axiosInstance.get(`/videos/${videoId}`);
+            // console.log(res.data);
             return res.data;
         } catch (error) {
             if (!error.response) {
@@ -120,7 +121,18 @@ const videoSlice = createSlice({
             .addCase(getAllVideos.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || "Failed to fetch videos";
-            });
+            })
+
+            .addCase(getVideoByVideoId.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+
+            .addCase(getVideoByVideoId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.video = action.payload.data;
+            })
+
     },
 });
 

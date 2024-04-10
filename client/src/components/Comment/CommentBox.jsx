@@ -12,11 +12,12 @@ import EmptyMessage from '../EmptyMessage';
 const CommentBox = ({ contentId, type }) => {
     const [comments, setComments] = useState([]);
     const [currPage, setCurrPage] = useState(1);
-    const [sortType, setSortType] = useState < "recent" | "oldest" > ("recent");
+    const [sortType, setSortType] = useState("recent");
     const [totalPages, setTotalPages] = useState(0);
     const [totalDocs, setTotalDocs] = useState(0);
     const [hasNextPage, setHasNextPage] = useState(false);
 
+    // console.log(contentId, type);
     const { error, isLoading, handleAction } = useActionHandler({
         action: type === "video" ? getVideoComment : getTweetComment,
         isShowToastMessage: false,
@@ -34,12 +35,15 @@ const CommentBox = ({ contentId, type }) => {
             },
         });
 
-        if (isSuccess && resData?.result) {
+        // console.log(resData);
+
+        if (isSuccess && resData) {
             setComments((prevComments) =>
                 page === 1
-                    ? resData.result.docs
-                    : [...prevComments, ...resData.result.docs]
+                    ? resData
+                    : [...prevComments, ...resData]
             );
+            console.log(comments);
             setCurrPage(resData.result.page);
             setTotalPages(resData.result.totalPages);
             setTotalDocs(resData.result.totalDocs);

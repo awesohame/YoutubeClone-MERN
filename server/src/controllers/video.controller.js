@@ -8,7 +8,7 @@ import { deleteOnCloudinary, uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const getAllVideos = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query;
-  
+
   const parsedPage = parseInt(page);
   const parsedLimit = parseInt(limit);
 
@@ -22,7 +22,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
       .status(400)
       .json(new ApiResponse(400, null, "Invalid page or limit parameters."));
   }
-  
+
   const user = await User.findById(userId);
 
   if (userId && !user) {
@@ -39,7 +39,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
     page: parsedPage,
     limit: parsedLimit,
     sort: sort,
-  };  
+  };
 
   const aggregate = userId ? Video.aggregate([{ $match: { owner: user._id } }]) : {};
 
@@ -98,7 +98,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     videoId,
     { $inc: { views: 1 } },
     { new: true } // Return the updated document
-  );
+  ).populate("owner", "avatar username");
 
   if (!video) {
     throw new ApiError(404, "Video not found");
