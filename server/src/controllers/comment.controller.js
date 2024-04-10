@@ -46,7 +46,7 @@ const getVideoComments = asyncHandler(async (req, res) => {
         }
       },
       {
-        $addFields:{
+        $addFields: {
           owner: {
             $first: "$owner"
           }
@@ -61,7 +61,7 @@ const getVideoComments = asyncHandler(async (req, res) => {
           "owner.__v": 0
         }
       }
-      
+
     ]);
 
     if (comments.length === 0) {
@@ -100,6 +100,8 @@ const addComment = asyncHandler(async (req, res) => {
     video: videoId,
     content,
   });
+
+  await newComment.populate("owner")
 
   return res
     .status(201)

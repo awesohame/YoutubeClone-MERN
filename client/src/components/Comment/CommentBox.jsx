@@ -24,7 +24,7 @@ const CommentBox = ({ contentId, type }) => {
     });
 
     const fetchComments = async (page) => {
-        const { isSuccess, resData } = await handleAction({
+        const { success, resData } = await handleAction({
             videoId: contentId,
             tweetId: contentId,
             queryParams: {
@@ -36,18 +36,20 @@ const CommentBox = ({ contentId, type }) => {
         });
 
         // console.log(resData);
+        // console.log(success);
 
-        if (isSuccess && resData) {
+        if (success && resData) {
             setComments((prevComments) =>
                 page === 1
                     ? resData
                     : [...prevComments, ...resData]
             );
-            console.log(comments);
-            setCurrPage(resData.result.page);
-            setTotalPages(resData.result.totalPages);
-            setTotalDocs(resData.result.totalDocs);
-            setHasNextPage(resData.result.hasNextPage);
+            // setComments(resData)
+            // console.log(comments);
+            // setCurrPage(resData.result.page);
+            // setTotalPages(resData.result.totalPages);
+            // setTotalDocs(resData.result.totalDocs);
+            // setHasNextPage(resData.result.hasNextPage);
         }
     };
 
@@ -58,6 +60,8 @@ const CommentBox = ({ contentId, type }) => {
     const handleSortChange = (e) => {
         setSortType(e.target.value);
     };
+
+    // console.log('comments just before component renders: ', comments);
 
     return (
         <ScrollPagination

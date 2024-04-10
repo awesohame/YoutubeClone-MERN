@@ -1,50 +1,50 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { twMerge } from "tailwind-merge";
 import { AiOutlineClose } from "react-icons/ai";
 import { createPortal } from "react-dom";
+
 import useClickOutside from "../../hooks/useClickOutside";
 import Button from "./Button";
 
-export default function Modal({
+const Modal = ({
     open,
-    handleClose = () => { },
+    handleClose,
     title,
     description,
     children,
     submitLabel,
-    onSubmit = () => { },
-    onSubmitDisabled,
+    onSubmit,
+    isSubmitButtonDisabled,
     isLoading,
     className = "",
     closeButton,
-    onOpen = () => { },
-}) {
-    const modalRef = useRef();
+    onOpen,
+}) => {
+    const ModalRef = useRef < HTMLDivElement > (null);
 
     if (!closeButton) {
         useClickOutside({
-            ref: modalRef,
+            ref: ModalRef,
             callback: handleClose,
         });
     }
 
     useEffect(() => {
-        if (onOpen && open) {
-            onOpen();
-            return;
-        }
-    }, [open, onOpen]);
+        if (onOpen && open) onOpen();
+        return;
+    }, [open]);
 
     return (
         <>
             {open &&
                 createPortal(
-                    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-70">
+                    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-15 backdrop-blur-[3px]">
                         <div
-                            ref={modalRef}
-                            className={
-                                " relative bg-white dark:bg-[#121212] dark:border dark:border-[#525252] rounded-md p-8 max-sm:px-4 max-w-md w-[95%] max-h-[95%] overflow-x-hidden overflow-y-scroll flex flex-col gap-3 " +
+                            ref={ModalRef}
+                            className={twMerge(
+                                "relative bg-white dark:bg-[#121212] dark:border dark:border-[#525252] rounded-md p-8 max-sm:px-4 max-w-md w-[95%] max-h-[95%] overflow-x-hidden overflow-y-scroll flex flex-col gap-3",
                                 className
-                            }
+                            )}
                         >
                             <h2 className="text-xl text-black dark:text-white font-bold font-Noto_sans">
                                 {title}
@@ -88,5 +88,7 @@ export default function Modal({
                     document.getElementById("portal")
                 )}
         </>
-    )
-}
+    );
+};
+
+export default Modal;

@@ -1,19 +1,22 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import TimeAgo from 'react-timeago';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import TimeAgo from "react-timeago";
 
-import useActionHandler from '../../hooks/useActionHandler';
-import { deleteComment, updateComment } from '../../store/slices/commentSlice';
-import { toggleCommentLike } from '../../store/slices/likeSlice';
-import Avatar from '../Core/Avatar';
-import LikeBtn from '../Core/LikeBtn';
-import DropdownMenu from '../Core/DropdownMenu';
-import Button from '../Core/Button';
-import EditableTextarea from '../Core/EditableTextArea';
-import Modal from '../Core/Modal';
-import TextWithToggle from '../Core/TextWithToggle';
+import useActionHandler from "../../hooks/useActionHandler";
+import {
+    deleteComment,
+    updateComment,
+} from "../../store/slices/commentSlice";
+import { toggleCommentLike } from "../../store/slices/likeSlice";
+import Avatar from "../Core/Avatar";
+import LikeBtn from "../Core/LikeBtn";
+import DropdownMenu from "../Core/DropdownMenu";
+import Button from "../Core/Button";
+import EditableTextarea from "../Core/EditableTextArea";
+import Modal from "../Core/Modal";
 import { FiMoreVertical } from "react-icons/fi";
+import TextWithToggle from "../Core/TextWithToggle";
 
 const CommentCard = ({ comment }) => {
     const navigate = useNavigate();
@@ -76,12 +79,14 @@ const CommentCard = ({ comment }) => {
         );
     }
 
+    // console.log(comment);
+
     return (
         <div className="group/item flex gap-2">
             <div className="flex flex-grow gap-2">
                 <Avatar
-                    url={comment?.owner?.avatar?.url}
-                    fullName={comment.owner.fullName}
+                    url={comment?.owner?.avatar}
+                    fullName={comment?.owner?.username}
                     className="h-10 w-10"
                     onClick={() => navigate(`/c/${comment?.owner?.username}`)}
                 />
@@ -118,15 +123,15 @@ const CommentCard = ({ comment }) => {
                             {commentContent}
                         </TextWithToggle>
                         <LikeBtn
-                            contentId={comment._id}
-                            isLiked={comment.isLiked}
-                            likeCount={comment.commentLikesCount}
+                            contentId={comment?._id}
+                            isLiked={comment?.isLiked}
+                            likeCount={comment?.commentLikesCount}
                             toggleLikeAction={toggleCommentLike}
                         />
                     </div>
                 )}
             </div>
-            {user?._id === comment.owner._id && !isEditing && (
+            {user?._id === comment?.owner?._id && !isEditing && (
                 <>
                     <DropdownMenu
                         triggerButton={

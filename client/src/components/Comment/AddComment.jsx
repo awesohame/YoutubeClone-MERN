@@ -18,6 +18,7 @@ const AddComment = ({
 }) => {
     const navigate = useNavigate()
     const { user } = useSelector((state) => state?.auth);
+    // console.log(user);
 
     const { formData, handleInputChange, resetForm } = useForm({
         initialFormState: { content: "" },
@@ -38,10 +39,12 @@ const AddComment = ({
             tweetId: contentId,
         });
 
-        if (res.isSuccess) {
+        console.log(res);
+
+        if (res.success) {
             resetForm();
             setComments((prevComments) => [
-                { ...res.resData?.comment },
+                { ...res.resData },
                 ...prevComments,
             ]);
         }
@@ -50,7 +53,7 @@ const AddComment = ({
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-1">
             <div className="flex items-center md:gap-5 gap-3 py-1.5">
-                <Avatar url={user?.avatar?.url} fullName={user?.fullName} onClick={() => navigate(`/c/${user?.username}`)} />
+                <Avatar url={user?.avatar} fullName={user?.username} onClick={() => navigate(`/c/${user?.username}`)} />
                 <input
                     type="text"
                     name="content"

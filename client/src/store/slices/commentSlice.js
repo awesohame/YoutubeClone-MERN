@@ -51,7 +51,7 @@ const updateComment = createAsyncThunk(
         { rejectWithValue }
     ) => {
         try {
-            const res = await axiosInstance.patch(`/comments/${commentId}`, data);
+            const res = await axiosInstance.patch(`/comments/c/${commentId}`, data);
             return res.data;
         } catch (error) {
             if (!error.response) {
@@ -66,7 +66,7 @@ const deleteComment = createAsyncThunk(
     "/delete-comment/commentId",
     async (commentId, { rejectWithValue }) => {
         try {
-            const res = await axiosInstance.delete(`/comments/${commentId}`);
+            const res = await axiosInstance.delete(`/comments/c/${commentId}`);
             return res.data;
         } catch (error) {
             if (!error.response) {
