@@ -81,12 +81,12 @@ const Sidebar = ({
                 slug: "/your-videos",
                 active: true,
             },
-            {
-                label: "Watch Later",
-                icon: <MdOutlineWatchLater />,
-                slug: "/watch-later",
-                active: true,
-            },
+            // {
+            //     label: "Watch Later",
+            //     icon: <MdOutlineWatchLater />,
+            //     slug: "/watch-later",
+            //     active: true,
+            // },
             {
                 label: "Liked videos",
                 icon: <SlLike />,
@@ -105,18 +105,18 @@ const Sidebar = ({
                 slug: "/settings",
                 active: true,
             },
-            {
-                label: "Help",
-                icon: <IoIosHelpCircleOutline />,
-                slug: "/help",
-                active: true,
-            },
-            {
-                label: "Send Feedback",
-                icon: <MdOutlineFeedback />,
-                slug: "/send-feedback",
-                active: true,
-            },
+            // {
+            //     label: "Help",
+            //     icon: <IoIosHelpCircleOutline />,
+            //     slug: "/help",
+            //     active: true,
+            // },
+            // {
+            //     label: "Send Feedback",
+            //     icon: <MdOutlineFeedback />,
+            //     slug: "/send-feedback",
+            //     active: true,
+            // },
         ],
         []
     );
