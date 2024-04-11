@@ -45,18 +45,18 @@ const Sidebar = ({
                 slug: "/create",
                 active: true,
             },
-            {
-                label: "You",
-                icon: (
-                    <Avatar
-                        fullName={user?.fullName}
-                        url={user?.avatar?.url}
-                        className="h-7 w-7"
-                    />
-                ),
-                slug: "/you",
-                active: true,
-            },
+            // {
+            //     label: "You",
+            //     icon: (
+            //         <Avatar
+            //             fullName={user?.fullName}
+            //             url={user?.avatar?.url}
+            //             className="h-7 w-7"
+            //         />
+            //     ),
+            //     slug: "/you",
+            //     active: true,
+            // },
         ],
         []
     );
