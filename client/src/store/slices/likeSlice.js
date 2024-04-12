@@ -9,7 +9,7 @@ const toggleVideoLike = createAsyncThunk(
     "/likes/video/videoId",
     async (videoId, { rejectWithValue }) => {
         try {
-            const res = await axiosInstance.post(`/likes/video/${videoId}`);
+            const res = await axiosInstance.post(`/likes/toggle/v/${videoId}`);
             return res.data;
         } catch (error) {
             if (!error.response) {
@@ -80,6 +80,7 @@ const likeSlice = createSlice({
             .addCase(getLikedVideo.rejected, (state) => {
                 state.likedVideo = [];
             });
+
     },
 });
 

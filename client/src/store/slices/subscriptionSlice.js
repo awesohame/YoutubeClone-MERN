@@ -6,7 +6,7 @@ const initialState = {};
 const toggleSubscription = createAsyncThunk("/subscriptions/channelId",
     async (channelId, { rejectWithValue }) => {
         try {
-            const res = await axiosInstance.post(`/subscriptions/c/${channelId}`)
+            const res = await axiosInstance.post(`/subscriptions/u/${channelId}`)
             return res.data
         } catch (error) {
             if (!error.response) {

@@ -23,6 +23,8 @@ import { FaChartBar, FaShare } from "react-icons/fa";
 import { BiSolidPlaylist } from "react-icons/bi";
 import AddVideoToPlaylistDialog from "../components/Playlist/AddVideoToPlaylistDialog";
 
+import axiosInstance from "../helper/axiosInstance";
+
 export default function VideoPlayer() {
     const navigate = useNavigate();
     const { videoId } = useParams();
@@ -31,6 +33,20 @@ export default function VideoPlayer() {
         useState(false);
     const { video } = useSelector((state) => state?.video);
     const { channel, user } = useSelector((state) => state?.auth);
+    const [likeCount, setLikeCount] = useState(0);
+
+
+    useEffect(() => {
+        const fetchLikes = async () => {
+            const { data } = await axiosInstance.get(`/likes/${videoId}?type=video`);
+            const likeCount = data.data[0].totalLikes;
+            setLikeCount(likeCount);
+        };
+        fetchLikes();
+    }, [videoId]);
+
+    // console.log(channel);
+    // console.log(video);
 
     const {
         isLoading: isFetchingVideo,
@@ -131,8 +147,8 @@ export default function VideoPlayer() {
                                                     {channel?.username}
                                                 </h3>
                                                 <p className="text-[13px] text-zinc-600 dark:text-[#AAAAAA] font-semibold leading-0 truncate">
-                                                    {abbreviateNumber(channel?.subscriberCount || 0, 1)}{" "}
-                                                    {channel?.subscriberCount || 0 <= 1
+                                                    {abbreviateNumber(channel?.subscribersCount || 0, 1)}{" "}
+                                                    {channel?.subscribersCount || 0 <= 1
                                                         ? "Subscriber"
                                                         : "Subscribers"}
                                                 </p>
@@ -162,7 +178,7 @@ export default function VideoPlayer() {
                                         <LikeBtn
                                             contentId={video._id}
                                             isLiked={video.isLiked}
-                                            likeCount={video.videoLikesCount}
+                                            likeCount={likeCount}
                                             toggleLikeAction={toggleVideoLike}
                                         />
                                         {/* share button */}
