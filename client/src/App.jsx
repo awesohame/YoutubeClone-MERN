@@ -13,7 +13,7 @@ import ChannelLayout from "./layout/ChannelLayout";
 import Channel from "./pages/channel/Channel";
 import Videos from "./pages/channel/Videos";
 import Tweets from "./pages/channel/Tweets";
-// import Playlists from "./pages/channel/Playlists";
+import Playlists from "./pages/channel/Playlists";
 import Create from "./pages/Create";
 // import TweetEdit from "./pages/edit/TweetEdit";
 // import Settings from "./pages/Settings";
@@ -66,6 +66,7 @@ function App() {
         <Route path="" element={<Channel />} />
         <Route path="videos" element={<Videos />} />
         <Route path="tweets" element={<Tweets />} />
+        <Route path="playlists" element={<Playlists />} />
         {/* <Route path="playlists" element={<Playlists />} /> */}
       </Route>
 

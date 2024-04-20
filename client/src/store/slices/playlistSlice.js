@@ -6,14 +6,14 @@ const initialState = {
 }
 
 const createPlaylist = createAsyncThunk(
-    "/playlist/create",
+    "/playlist",
     async (
         data,
         { rejectWithValue }
     ) => {
         try {
             //playlist post
-            const res = await axiosInstance.post("/playlist/create", data);
+            const res = await axiosInstance.post("/playlist", data);
             return res?.data;
         } catch (error) {
             if (!error.response) {
@@ -25,7 +25,7 @@ const createPlaylist = createAsyncThunk(
 );
 
 const getUserPlaylists = createAsyncThunk(
-    "/playlist/get/user/userid",
+    "/playlist/user/userid",
     async (
         {
             userId,
@@ -35,7 +35,7 @@ const getUserPlaylists = createAsyncThunk(
     ) => {
         try {
             //get user playlist
-            const res = await axiosInstance.get(`/playlist/get/user/${userId}`, {
+            const res = await axiosInstance.get(`/playlist/user/${userId}`, {
                 params: queryParams,
             });
             return res?.data;
@@ -49,14 +49,14 @@ const getUserPlaylists = createAsyncThunk(
 );
 
 const getPlaylist = createAsyncThunk(
-    "/playlist/get/playlistId",
+    "/playlist/playlistId",
     async (
         playlistId,
         { rejectWithValue }
     ) => {
         try {
             //get playlist by id
-            const res = await axiosInstance.get(`/playlist/get/${playlistId}`);
+            const res = await axiosInstance.get(`/playlist/${playlistId}`);
             return res?.data;
         } catch (error) {
             if (!error.response) {
@@ -67,29 +67,29 @@ const getPlaylist = createAsyncThunk(
     }
 );
 
-const getUserPlaylistVideos = createAsyncThunk(
-    "/playlist/get/playlistId/videos",
-    async (
-        {
-            playlistId,
-            queryParams,
-        },
-        { rejectWithValue }
-    ) => {
-        try {
-            //get playlist videos
-            const res = await axiosInstance.get(`/playlist/get/${playlistId}/videos`, {
-                params: queryParams,
-            });
-            return res?.data;
-        } catch (error) {
-            if (!error.response) {
-                throw error;
-            }
-            return rejectWithValue(error?.response?.data);
-        }
-    }
-);
+// const getUserPlaylistVideos = createAsyncThunk(
+//     "/playlist/get/playlistId/videos",
+//     async (
+//         {
+//             playlistId,
+//             queryParams,
+//         },
+//         { rejectWithValue }
+//     ) => {
+//         try {
+//             //get playlist videos
+//             const res = await axiosInstance.get(`/playlist/get/${playlistId}/videos`, {
+//                 params: queryParams,
+//             });
+//             return res?.data;
+//         } catch (error) {
+//             if (!error.response) {
+//                 throw error;
+//             }
+//             return rejectWithValue(error?.response?.data);
+//         }
+//     }
+// );
 
 const addVideoToPlaylist = createAsyncThunk(
     "/playlist/add/playlistId/video",
@@ -102,7 +102,7 @@ const addVideoToPlaylist = createAsyncThunk(
     ) => {
         try {
             //add video to playlist
-            const res = await axiosInstance.post(`/playlist/add/${playlistId}/${videoId}`);
+            const res = await axiosInstance.post(`/playlists/add/${videoId}/${playlistId}`);
             return res?.data;
         } catch (error) {
             if (!error.response) {
@@ -121,7 +121,7 @@ const removeVideoFromPlaylist = createAsyncThunk(
     ) => {
         try {
             const res = await axiosInstance.delete(
-                `/playlists/${playlistId}/${videoId}`
+                `/playlists/remove/${videoId}/${playlistId}`
             );
             return res?.data;
         } catch (error) {
@@ -134,7 +134,7 @@ const removeVideoFromPlaylist = createAsyncThunk(
 );
 
 const deletePlaylist = createAsyncThunk(
-    "/playlists/delete/playlistId",
+    "/playlists/playlistId",
     async (playlistId, { rejectWithValue }) => {
         try {
             const res = await axiosInstance.delete(`/playlists/${playlistId}`);
@@ -194,7 +194,7 @@ export {
     createPlaylist,
     getUserPlaylists,
     getPlaylist,
-    getUserPlaylistVideos,
+    // getUserPlaylistVideos,
     addVideoToPlaylist,
     removeVideoFromPlaylist,
     deletePlaylist,
