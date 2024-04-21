@@ -24,7 +24,7 @@ const toggleCommentLike = createAsyncThunk(
     "/likes/comment/commentId",
     async (commentId, { rejectWithValue }) => {
         try {
-            const res = await axiosInstance.post(`/likes/comment/${commentId}`);
+            const res = await axiosInstance.post(`/likes/toggle/c/${commentId}`);
             return res.data;
         } catch (error) {
             if (!error.response) {
@@ -64,6 +64,23 @@ const getLikedVideo = createAsyncThunk(
         }
     }
 );
+// unnecessary but dont delete
+// const getTotalLikesByAnyId = createAsyncThunk(
+//     "/likes/total/anyId",
+//     async ({ anyId, type }, { rejectWithValue }) => {
+//         try {
+//             // console.log(anyId, type);
+//             const res = await axiosInstance.get(`/likes/${anyId}?type=${type}`);
+//             // console.log(res.data);
+//             return res.data;
+//         } catch (error) {
+//             if (!error.response) {
+//                 throw error;
+//             }
+//             return rejectWithValue(error?.response?.data);
+//         }
+//     }
+// );
 
 const likeSlice = createSlice({
     name: "like",
@@ -81,9 +98,24 @@ const likeSlice = createSlice({
                 state.likedVideo = [];
             });
 
+        // do not uncomment this
+        // builder
+        //     .addCase(getTotalLikesByAnyId.pending, (state) => {
+        //         state.totalLikes = 0;
+        //     })
+        //     .addCase(getTotalLikesByAnyId.fulfilled, (state, action) => {
+        //         state.totalLikes = action.payload?.data?.totalLikes;
+        //     })
+        //     .addCase(getTotalLikesByAnyId.rejected, (state) => {
+        //         state.totalLikes = 0;
+        //     });
+
     },
 });
 
 export default likeSlice.reducer;
 export const { } = likeSlice.actions;
-export { toggleVideoLike, toggleCommentLike, toggleTweetLike, getLikedVideo };
+export {
+    toggleVideoLike, toggleCommentLike, toggleTweetLike, getLikedVideo,
+    // getTotalLikesByAnyId 
+};

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import TimeAgo from "react-timeago";
@@ -18,7 +18,10 @@ import Modal from "../Core/Modal";
 import { FiMoreVertical } from "react-icons/fi";
 import TextWithToggle from "../Core/TextWithToggle";
 
+import axiosInstance from "../../helper/axiosInstance";
+
 const CommentCard = ({ comment }) => {
+    // console.log(comment);
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
     const [commentContent, setCommentContent] = useState(comment?.content);
@@ -27,6 +30,37 @@ const CommentCard = ({ comment }) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editedContent, setEditedContent] = useState(comment?.content);
+
+    const [likeCount, setLikeCount] = useState(0);
+
+    // const {
+    //     handleAction: handleGetTotalLikesAction,
+    // } = useActionHandler({
+    //     action: getTotalLikesByAnyId,
+    //     isShowToastMessage: false,
+    // });
+
+    // const fetchTotalLikes = async () => {
+    //     await handleGetTotalLikesAction({ anyId: comment._id, type: "comment" });
+    // };
+
+    // useEffect(() => {
+    //     fetchTotalLikes();
+    // }, []);
+
+    // const totalLikes = useSelector((state) => state.like.totalLikes);
+    // console.log(totalLikes);
+
+    useEffect(() => {
+        const fetchLikes = async () => {
+            const { data } = await axiosInstance.get(`/likes/${comment._id}?type=comment`);
+            const likeCount = data.data[0].totalLikes;
+            if (likeCount) {
+                setLikeCount(likeCount);
+            }
+        };
+        fetchLikes();
+    }, []);
 
     const { isLoading: isDeleting, handleAction: deleteCommentAction } =
         useActionHandler({
@@ -125,7 +159,7 @@ const CommentCard = ({ comment }) => {
                         <LikeBtn
                             contentId={comment?._id}
                             isLiked={comment?.isLiked}
-                            likeCount={comment?.commentLikesCount}
+                            likeCount={likeCount}
                             toggleLikeAction={toggleCommentLike}
                         />
                     </div>
