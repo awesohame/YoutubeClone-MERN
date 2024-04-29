@@ -19,6 +19,7 @@ import Create from "./pages/Create";
 // import Settings from "./pages/Settings";
 // import PlaylistVideos from "./pages/PlaylistVideos"; 
 import VideoPlayer from "./pages/VideoPlayer";
+import Subscriptions from './pages/Subscriptions';
 
 //test imports
 
@@ -61,6 +62,8 @@ function App() {
 
       <Route path="/create" element={<Create />} />
       <Route path="/account" element={<Account />} />
+
+      <Route path="/subscriptions" element={<Subscriptions />} />
 
       <Route path="/channel/:username" element={<ChannelLayout />}>
         <Route path="" element={<Channel />} />

@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { FaUserPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { twMerge } from "tailwind-merge";
+import { FaUserPlus } from "react-icons/fa";
 
-import useActionHandler from "../../hooks/useActionHandler";
 import Button from "../Core/Button";
+import useActionHandler from "../../hooks/useActionHandler";
 import { toggleSubscription } from "../../store/slices/subscriptionSlice";
 
 
 export default function SubscribeBtn({
     isSubscribed,
     channelId,
+    className = "",
 }) {
-    // console.log(isSubscribed);
     const { user } = useSelector((state) => state.auth);
     const [subscribed, setSubscribed] = useState(isSubscribed);
 
@@ -21,9 +22,9 @@ export default function SubscribeBtn({
     });
 
     const handleSubscribe = async () => {
-        const { success } = await handleAction(channelId);
+        const { isSuccess } = await handleAction(channelId);
 
-        if (success) {
+        if (isSuccess) {
             setSubscribed((prev) => !prev);
         }
     };
@@ -33,7 +34,10 @@ export default function SubscribeBtn({
             icon={<FaUserPlus />}
             isLarge={false}
             disabled={isLoading}
-            className="text-base text-white bg-[#f10b64] px-4 rounded-full mt-2"
+            className={twMerge(
+                "text-base text-white bg-[#f10b64] px-4 rounded-full mt-2",
+                className
+            )}
             onClick={handleSubscribe}
         >
             {isLoading ? "Subscribing..." : subscribed ? "Unsubscribe" : "Subscribe"}

@@ -137,7 +137,7 @@ export default function VideoPlayer() {
                                                 url={channel?.avatar}
                                                 className="size-10"
                                                 onClick={() =>
-                                                    navigate(`/c/${channel?.username}`, {
+                                                    navigate(`/channel/${channel?.username}`, {
                                                         state: { channel },
                                                     })
                                                 }
