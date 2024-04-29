@@ -43,7 +43,17 @@ const getAllVideos = asyncHandler(async (req, res) => {
 
   const aggregate = userId ? Video.aggregate([{ $match: { owner: user._id } }]) : {};
 
+  // const aggregate = userId ?
+  //   Video.aggregate([
+  //     { $match: { owner: mongoose.Types.ObjectId(user._id) } },
+  //     { $lookup: { from: 'users', localField: 'owner', foreignField: '_id', as: 'owner' } },
+  //   ]) :
+  //   Video.aggregate([]);
+
   const result = await Video.aggregatePaginate(aggregate, options);
+  const populatedResult = await Video.populate(result.docs, { path: "owner", select: "avatar username" });
+  result.docs = populatedResult;
+
   return res
     .status(200)
     .json(new ApiResponse(200, result, "Videos fetched successfully"));
