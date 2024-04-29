@@ -107,8 +107,7 @@ export default function Playlists() {
                 )}
             </div>
             <div className="w-full flex flex-wrap md:gap-10 gap-x-4 gap-y-5 max-lg:px-1 py-5 max-md:pb-12">
-                {!playlists.length &&
-                    !isLoading ? (
+                {!playlists.length ? (
                     <EmptyMessage
                         message="empty playlists"
                         buttonText="fetch again"

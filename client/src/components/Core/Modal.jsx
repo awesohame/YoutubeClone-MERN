@@ -20,7 +20,7 @@ const Modal = ({
     closeButton,
     onOpen,
 }) => {
-    const ModalRef = useRef < HTMLDivElement > (null);
+    const ModalRef = useRef(null);
 
     if (!closeButton) {
         useClickOutside({
