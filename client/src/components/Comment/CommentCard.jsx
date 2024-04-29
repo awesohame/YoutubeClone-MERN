@@ -78,9 +78,9 @@ const CommentCard = ({ comment }) => {
 
     const handleDeleteComment = async (commentId) => {
         setIsDeleted(false);
-        const { error, isSuccess } = await deleteCommentAction(commentId);
+        const { error, success } = await deleteCommentAction(commentId);
 
-        if (!error && isSuccess) {
+        if (!error && success) {
             setIsDeleted(true);
         }
     };

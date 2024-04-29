@@ -78,7 +78,7 @@ const Sidebar = ({
             {
                 label: "Your videos",
                 icon: <RiVideoLine />,
-                slug: "/your-videos",
+                slug: `/channel/${user?.username}/videos`,
                 active: true,
             },
             // {
@@ -99,12 +99,12 @@ const Sidebar = ({
 
     const miscellaneousMenu = useMemo(
         () => [
-            {
-                label: "Settings",
-                icon: <CiSettings />,
-                slug: "/settings",
-                active: true,
-            },
+            // {
+            //     label: "Settings",
+            //     icon: <CiSettings />,
+            //     slug: "/settings",
+            //     active: true,
+            // },
             // {
             //     label: "Help",
             //     icon: <IoIosHelpCircleOutline />,

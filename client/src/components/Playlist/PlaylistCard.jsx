@@ -30,9 +30,9 @@ export default function PlaylistCard({ playlist }) {
 
   const handleDeletePlaylist = async (playlistId) => {
     setIsDeleted(false);
-    const { error, isSuccess } = await deletePlaylistAction(playlistId);
+    const { error, success } = await deletePlaylistAction(playlistId);
 
-    if (!error && isSuccess) {
+    if (!error && success) {
       setIsShowDeletePlaylistConfirmDialog(false);
       setIsDeleted(true);
     }

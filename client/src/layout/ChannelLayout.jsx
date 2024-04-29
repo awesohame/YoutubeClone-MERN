@@ -45,10 +45,10 @@ export default function ChannelLayout() {
             label: "Videos",
             slug: `/channel/${username}/videos`,
         },
-        {
-            label: "Tweets",
-            slug: `/channel/${username}/tweets`,
-        },
+        // {
+        //     label: "Tweets",
+        //     slug: `/channel/${username}/tweets`,
+        // },
         {
             label: "Playlists",
             slug: `/channel/${username}/playlists`,
@@ -98,7 +98,7 @@ export default function ChannelLayout() {
                             <div className="flex md:gap-14 gap-5">
                                 <Avatar
                                     url={channel?.avatar}
-                                    fullName={channel?.fullName}
+                                    fullName={channel?.fullname}
                                     className="md:h-36 h-20 md:w-36 w-20"
                                 />
 

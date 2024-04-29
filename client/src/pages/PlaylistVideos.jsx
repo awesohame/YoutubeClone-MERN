@@ -7,11 +7,10 @@ import { MdDelete } from "react-icons/md";
 import { IoIosMore } from "react-icons/io";
 
 import Layout from "../layout/Layout";
-// import { RootState } from "../store/store";
 import {
   deletePlaylist,
   getPlaylist,
-  getUserPlaylistVideos,
+  // getUserPlaylistVideos,
 } from "../store/slices/playlistSlice";
 import useActionHandler from "../hooks/useActionHandler";
 import Skeleton from "../components/Skeleton";
@@ -21,7 +20,6 @@ import Button from "../components/CoreUI/Button";
 import DeletePlaylistDialogButton from "../components/Playlist/DeletePlaylistDialogButton";
 import UpdatePlaylistDialog from "../components/Playlist/UpdatePlaylistDialog";
 import ScrollPagination from "../components/ScrollPagination";
-// import { Video } from "../store/slices/videoSlice";
 import PlaylistVideoCard from "../components/Playlist/playlistVideo/PlaylistVideoCard";
 import PlaylistVideoSkeleton from "../components/Playlist/playlistVideo/PlaylistVideoSkeleton";
 import TextWithToggle from "../components/CoreUI/TextWithToggle";
@@ -49,8 +47,9 @@ export default function PlaylistVideos() {
     });
 
   const handleDeletePlaylist = async () => {
-    const { error, isSuccess } = await deletePlaylistAction(playlistId);
-    if (!error && isSuccess) {
+    const { error, success } = await deletePlaylistAction(playlistId);
+    // console.log(isSuccess)
+    if (!error && success) {
       setIsShowDeleteDialog(false);
       navigate(-1);
     }
@@ -65,68 +64,73 @@ export default function PlaylistVideos() {
     isShowToastMessage: false,
   });
 
-  const {
-    isLoading: isFetchingVideos,
-    error: videosFetchingError,
-    handleAction: fetchPlaylistVideos,
-  } = useActionHandler({
-    action: getUserPlaylistVideos,
-    isShowToastMessage: false,
-  });
+  // const {
+  //   isLoading: isFetchingVideos,
+  //   error: videosFetchingError,
+  //   handleAction: fetchPlaylistVideos,
+  // } = useActionHandler({
+  //   action: getUserPlaylistVideos,
+  //   isShowToastMessage: false,
+  // });
 
-  const handleFetchPlaylistVideos = async (page) => {
-    if (!playlist?._id || !playlistId) return;
+  // const handleFetchPlaylistVideos = async (page) => {
+  //   if (!playlist?._id || !playlistId) return;
 
-    if (page == 1) {
-      setPlaylistVideos([]);
-    }
+  //   if (page == 1) {
+  //     setPlaylistVideos([]);
+  //   }
 
-    const { isSuccess, resData } = await fetchPlaylistVideos({
-      playlistId,
-      queryParams: {
-        page,
-        limit,
-        orderBy: sortType.includes("date-added")
-          ? sortType.includes("newest")
-            ? "desc"
-            : "acc"
-          : undefined,
-        sortBy: !sortType.includes("date-added")
-          ? sortType.includes("popular")
-            ? "views"
-            : "createdAt"
-          : undefined,
-        sortType: !sortType.includes("date-added")
-          ? sortType.includes("popular")
-            ? "desc"
-            : sortType.includes("newest")
-            ? "desc"
-            : "acc"
-          : undefined,
-      },
-    });
+  //   const { isSuccess, resData } = await fetchPlaylistVideos({
+  //     playlistId,
+  //     queryParams: {
+  //       page,
+  //       limit,
+  //       orderBy: sortType.includes("date-added")
+  //         ? sortType.includes("newest")
+  //           ? "desc"
+  //           : "acc"
+  //         : undefined,
+  //       sortBy: !sortType.includes("date-added")
+  //         ? sortType.includes("popular")
+  //           ? "views"
+  //           : "createdAt"
+  //         : undefined,
+  //       sortType: !sortType.includes("date-added")
+  //         ? sortType.includes("popular")
+  //           ? "desc"
+  //           : sortType.includes("newest")
+  //             ? "desc"
+  //             : "acc"
+  //         : undefined,
+  //     },
+  //   });
 
-    if (isSuccess && resData?.result) {
-      const newPlaylistVideos = resData.result.docs;
-      setPlaylistVideos(
-        page === 1
-          ? [...newPlaylistVideos]
-          : [...playlistVideos, ...newPlaylistVideos]
-      );
-      setCurrentPage(resData.result.page);
-      setTotalPages(resData.result.totalPages);
-      setTotalVideos(resData.result.totalDocs);
-      setHasNextPage(resData.result.hasNextPage);
-    }
-  };
+  //   if (isSuccess && resData?.result) {
+  //     const newPlaylistVideos = resData.result.docs;
+  //     setPlaylistVideos(
+  //       page === 1
+  //         ? [...newPlaylistVideos]
+  //         : [...playlistVideos, ...newPlaylistVideos]
+  //     );
+  //     setCurrentPage(resData.result.page);
+  //     setTotalPages(resData.result.totalPages);
+  //     setTotalVideos(resData.result.totalDocs);
+  //     setHasNextPage(resData.result.hasNextPage);
+  //   }
+  // };
 
   useEffect(() => {
     fetchPlaylist(playlistId);
   }, [playlistId]);
 
   useEffect(() => {
-    handleFetchPlaylistVideos(1);
-  }, [playlistId, playlist?._id, sortType]);
+    // console.log(playlist);
+    setPlaylistVideos(playlist?.videos || []);
+  }, [playlist])
+
+  // useEffect(() => {
+  //   handleFetchPlaylistVideos(1);
+  // }, [playlistId, playlist?._id, sortType]);
 
   return (
     <Layout className="w-full flex max-lg:flex-col max-lg:gap-7 min-h-full gap-3 md:py-5 md:px-4">
@@ -148,8 +152,8 @@ export default function PlaylistVideos() {
                 !playlist?.playlistThumbnail
                   ? "bg-none"
                   : [
-                      "bg-gradient-to-b from-violet-400 from-[30%] to-dark_bg to-[20%] via-violet-500 dark:via-[#161616] via-[100%]",
-                    ]
+                    "bg-gradient-to-b from-violet-400 from-[30%] to-dark_bg to-[20%] via-violet-500 dark:via-[#161616] via-[100%]",
+                  ]
               )}
             >
               {/* Thumbnail */}
@@ -185,14 +189,13 @@ export default function PlaylistVideos() {
                     </p>
                     <p className="text-xs">
                       {playlist?.videosCount
-                        ? `${abbreviateNumber(playlist?.videosCount)} ${
-                            playlist?.videosCount > 1 ? "videos" : "video"
-                          }`
-                        : "No vdeos"}{" "}
+                        ? `${abbreviateNumber(playlist?.videosCount)} ${playlist?.videosCount > 1 ? "videos" : "video"
+                        }`
+                        : "No videos"}{" "}
+                      •{" "}
                       {playlist?.totalViews
-                        ? `${abbreviateNumber(playlist?.totalViews)} ${
-                            playlist?.totalViews > 1 ? "views" : "view"
-                          }`
+                        ? `${abbreviateNumber(playlist?.totalViews)} ${playlist?.totalViews > 1 ? "views" : "view"
+                        }`
                         : "No views"}
                     </p>
                   </div>
@@ -261,8 +264,8 @@ export default function PlaylistVideos() {
             loadNextPage={() => handleFetchPlaylistVideos(currentPage + 1)}
             refreshHandler={() => handleFetchPlaylistVideos(1)}
             dataLength={playlistVideos.length}
-            loading={isFetchingVideos || isFetchingPlaylist}
-            error={videosFetchingError}
+            loading={isFetchingPlaylist}
+            // error={videosFetchingError}
             currentPage={currentPage}
             totalItems={totalVideos}
             totalPages={totalPages}
@@ -275,10 +278,9 @@ export default function PlaylistVideos() {
             className="lg:w-[70%] w-full min-h-full flex flex-col gap-2 px-1 pb-10"
           >
             {!playlistVideos?.length &&
-            totalVideos === 0 &&
-            totalPages === 1 &&
-            !isFetchingVideos &&
-            !isFetchingPlaylist ? (
+              totalVideos === 0 &&
+              totalPages === 1 &&
+              !isFetchingPlaylist ? (
               <ErrorDialog
                 errorMessage="empty videos!"
                 buttonLabel="Try again"
@@ -289,7 +291,7 @@ export default function PlaylistVideos() {
                 <select
                   className="w-min px-4 py-2 mb-3 bg-slate-50 dark:bg-[#171717] hover:bg-slate-200 dark:hover:bg-[#202020] rounded-full text-sm text-gray-700 dark:text-white"
                   value={sortType}
-                  onChange={(e) => setSortType(e.target.value )}
+                  onChange={(e) => setSortType(e.target.value)}
                 >
                   <option value="date-added-newest">Date added (newest)</option>
                   <option value="date-added-oldest">Date added (oldest)</option>
@@ -301,7 +303,7 @@ export default function PlaylistVideos() {
                     Date published (oldest)
                   </option>
                 </select>
-                {playlistVideos?.map(({ playlistVideo: video }, idx) => (
+                {playlistVideos?.map((video, idx) => (
                   <PlaylistVideoCard
                     key={video?._id}
                     video={video}
@@ -311,7 +313,7 @@ export default function PlaylistVideos() {
                 ))}
               </>
             )}
-            {(isFetchingVideos || isFetchingPlaylist) &&
+            {(isFetchingPlaylist) &&
               currentPage == 1 &&
               Array.from({ length: 10 }).map((_, idx) => (
                 <PlaylistVideoSkeleton key={idx} />

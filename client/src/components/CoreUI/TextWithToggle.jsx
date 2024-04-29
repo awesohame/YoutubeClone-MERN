@@ -1,12 +1,12 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TextWithToggle = ({
   children,
   initialShowLine,
   className,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLParagraphElement>(null);
+  const containerRef = useRef(null);
+  const contentRef = useRef(null);
   const [showAll, setShowAll] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -37,11 +37,11 @@ const TextWithToggle = ({
           showAll
             ? { overflow: "unset", display: "block" }
             : {
-                overflow: "hidden",
-                display: "-webkit-box",
-                WebkitLineClamp: initialShowLine,
-                WebkitBoxOrient: "vertical",
-              }
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: initialShowLine,
+              WebkitBoxOrient: "vertical",
+            }
         }
       >
         {children}

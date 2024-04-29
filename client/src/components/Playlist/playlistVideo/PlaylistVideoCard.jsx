@@ -88,13 +88,13 @@ const playlistVideoCard = ({ video, playlistId, idx }) => {
         }
       >
         <div className="min-w-[200px] flex flex-col gap-3 items-start">
-          <Button
+          {/* <Button
             icon={<AiOutlineClockCircle />}
             className="bg-white dark:bg-[#333333] border-gray-500 dark:border-[#505050] text-sm text-black dark:text-white font-roboto hover:opacity-75 w-full py-2"
             onClick={() => setIsShowAddVideoToWatchLaterDialog((prev) => !prev)}
           >
             Save to Watch Later
-          </Button>
+          </Button> */}
 
           <Button
             icon={<MdDelete />}

@@ -37,18 +37,18 @@ export default function AddVideoToPlaylistDialog({
 
     const handleFetchPlaylists = async (page) => {
         if (!user?._id) return;
-        console.log("ansih");
+        // console.log("ansih");
         if (page === 1) {
             setPlaylists([]);
         }
 
-        const { isSuccess, resData } = await fetchPlaylists({
+        const { success, resData } = await fetchPlaylists({
             userId: user?._id,
-            queryParams: { page, limit, videoId },   
+            queryParams: { page, limit, videoId },
         });
-        console.log(isSuccess, resData);
-        if (resData) {
-            
+        // console.log(success, resData);
+        if (resData && success) {
+
             const newPlaylists = resData;
             setPlaylists(newPlaylists);
             // setCurrentPage(resData.result.page);

@@ -22,9 +22,9 @@ export default function SubscribeBtn({
     });
 
     const handleSubscribe = async () => {
-        const { isSuccess } = await handleAction(channelId);
-
-        if (isSuccess) {
+        const { success } = await handleAction(channelId);
+        console.log(success);
+        if (success) {
             setSubscribed((prev) => !prev);
         }
     };

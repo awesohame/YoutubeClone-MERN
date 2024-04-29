@@ -54,7 +54,8 @@ const getLikedVideo = createAsyncThunk(
     "/likes/video",
     async (_, { rejectWithValue }) => {
         try {
-            const res = await axiosInstance.get("/likes/video");
+            const res = await axiosInstance.get("/likes/videos");
+            // console.log(res.data?.data);
             return res.data;
         } catch (error) {
             if (!error.response) {
@@ -92,7 +93,8 @@ const likeSlice = createSlice({
                 state.likedVideo = [];
             })
             .addCase(getLikedVideo.fulfilled, (state, action) => {
-                state.likedVideo = action.payload?.data?.likedVideo;
+                console.log(action.payload?.data);
+                state.likedVideo = action.payload?.data;
             })
             .addCase(getLikedVideo.rejected, (state) => {
                 state.likedVideo = [];

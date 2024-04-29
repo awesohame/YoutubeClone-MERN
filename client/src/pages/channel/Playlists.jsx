@@ -37,11 +37,11 @@ export default function Playlists() {
             queryParams: { page, limit },
         });
         // console.log(isSuccess);
-        console.log(resData);
+        // console.log(resData);
         if (resData) {
             const newPlaylists = resData;
             setPlaylists(newPlaylists);
-            console.log("playlist: ", playlists);
+            // console.log("playlist: ", playlists);
             // setCurrPage(resData.result.page);
             // setTotalPages(resData.result.totalPages);
             // setTotalDocs(resData.result.totalDocs);

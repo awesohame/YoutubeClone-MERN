@@ -57,6 +57,7 @@ const getPlaylist = createAsyncThunk(
         try {
             //get playlist by id
             const res = await axiosInstance.get(`/playlist/${playlistId}`);
+            // console.log(res?.data)
             return res?.data;
         } catch (error) {
             if (!error.response) {
@@ -137,7 +138,7 @@ const deletePlaylist = createAsyncThunk(
     "/playlists/playlistId",
     async (playlistId, { rejectWithValue }) => {
         try {
-            const res = await axiosInstance.delete(`/playlists/${playlistId}`);
+            const res = await axiosInstance.delete(`/playlist/${playlistId}`);
             return res?.data;
         } catch (error) {
             if (!error.response) {
@@ -179,7 +180,8 @@ const playlistSlice = createSlice({
                 state.playlist = null;
             })
             .addCase(getPlaylist.fulfilled, (state, action) => {
-                state.playlist = action.payload?.data?.playlist;
+                // console.log(action.payload?.data)
+                state.playlist = action.payload?.data;
             })
             .addCase(getPlaylist.rejected, (state) => {
                 state.playlist = null;
