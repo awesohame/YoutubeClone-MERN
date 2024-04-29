@@ -44,11 +44,15 @@ const Home = () => {
 
     const handleSortTypeChange = (type) => {
         setSortType(type);
-        setSortBy("views");
+        setSortBy("createdAt");
+        // console.log(sortType);
+        // console.log(sortBy);
     };
     const handleSortBy = (by) => {
         setSortType("desc");
         setSortBy(by);
+        // console.log(sortType);
+        // console.log(sortBy);
     };
 
     const renderSkeletons = () => {

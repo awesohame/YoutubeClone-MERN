@@ -254,9 +254,9 @@ export default function VideoPlayer() {
             className={twMerge(
               "xl:w-[645px] w-full rounded-md min-h-full pb-5 px-3 max-md:px-3.5 dark:md:bg-[#0f0f0f]",
               !isFetchingVideo &&
-                video && [
-                  "md:shadow-[10px_25px_150px_#e3e3e3] md:dark:shadow-[50px_-15px_150px_#333333] md:px-4",
-                ]
+              video && [
+                "md:shadow-[10px_25px_150px_#e3e3e3] md:dark:shadow-[50px_-15px_150px_#333333] md:px-4",
+              ]
             )}
           >
             {isFetchingVideo || !video ? (
