@@ -32,13 +32,13 @@ export default function Playlists() {
     const fetchUserPlaylists = async (page) => {
         if (!channel?._id) return;
 
-        const { isSuccess, resData } = await handleAction({
+        const { success, resData } = await handleAction({
             userId: channel?._id,
             queryParams: { page, limit },
         });
         // console.log(isSuccess);
         // console.log(resData);
-        if (resData) {
+        if (resData && success) {
             const newPlaylists = resData;
             setPlaylists(newPlaylists);
             // console.log("playlist: ", playlists);
