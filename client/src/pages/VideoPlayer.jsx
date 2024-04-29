@@ -32,17 +32,20 @@ export default function VideoPlayer() {
     const [isShowAddVideoToPlaylistDialog, setIsShowAddVideoToPlaylistDialog] =
         useState(false);
     const { video } = useSelector((state) => state?.video);
+    // console.log(video);
     const { channel, user } = useSelector((state) => state?.auth);
     const [likeCount, setLikeCount] = useState(0);
 
-
     useEffect(() => {
         const fetchLikes = async () => {
+            // console.log(videoId);
             const { data } = await axiosInstance.get(`/likes/${videoId}?type=video`);
-            const likeCount = data.data[0].totalLikes;
+            // console.log(data);
+            const likeCount = data.data[0]?.totalLikes || 0;
             setLikeCount(likeCount);
         };
         fetchLikes();
+
     }, [videoId]);
 
     // console.log(channel);
@@ -158,7 +161,7 @@ export default function VideoPlayer() {
                                             channelId={channel?._id}
                                             isSubscribed={channel?.isSubscribed}
                                         />
-                                        {channel?._id === user?._id && (
+                                        {/* {channel?._id === user?._id && (
                                             <Button
                                                 className="rounded-lg text-[15px] font-roboto py-2"
                                                 isGradientBg
@@ -167,7 +170,7 @@ export default function VideoPlayer() {
                                             >
                                                 Dashboard
                                             </Button>
-                                        )}
+                                        )} */}
                                     </div>
                                 )}
 

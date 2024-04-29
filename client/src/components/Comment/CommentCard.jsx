@@ -54,7 +54,7 @@ const CommentCard = ({ comment }) => {
     useEffect(() => {
         const fetchLikes = async () => {
             const { data } = await axiosInstance.get(`/likes/${comment._id}?type=comment`);
-            const likeCount = data.data[0].totalLikes;
+            const likeCount = data.data[0]?.totalLikes || 0;
             if (likeCount) {
                 setLikeCount(likeCount);
             }
