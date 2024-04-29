@@ -17,7 +17,7 @@ import Playlists from "./pages/channel/Playlists";
 import Create from "./pages/Create";
 // import TweetEdit from "./pages/edit/TweetEdit";
 // import Settings from "./pages/Settings";
-// import PlaylistVideos from "./pages/PlaylistVideos"; 
+import PlaylistVideos from "./pages/PlaylistVideos"; 
 import VideoPlayer from "./pages/VideoPlayer";
 import Subscriptions from './pages/Subscriptions';
 import WatchHistory from './pages/WatchHistory';
@@ -74,6 +74,8 @@ function App() {
         <Route path="playlists" element={<Playlists />} />
         {/* <Route path="playlists" element={<Playlists />} /> */}
       </Route>
+
+      <Route path="/playlists" element={<PlaylistVideos />} />
 
       {/* TEST */}
       <Route path="/watch/:videoId" element={<VideoPlayer />} />

@@ -38,9 +38,10 @@ export default function Playlists() {
         });
         // console.log(isSuccess);
         console.log(resData);
-        if (isSuccess && resData) {
+        if (resData) {
             const newPlaylists = resData;
             setPlaylists(newPlaylists);
+            console.log("playlist: ", playlists);
             // setCurrPage(resData.result.page);
             // setTotalPages(resData.result.totalPages);
             // setTotalDocs(resData.result.totalDocs);

@@ -6,25 +6,25 @@ import { abbreviateNumber } from "js-abbreviation-number";
 import { MdDelete } from "react-icons/md";
 import { IoIosMore } from "react-icons/io";
 
-import Layout from "@/layout/Layout";
-import { RootState } from "@/store/store";
+import Layout from "../layout/Layout";
+// import { RootState } from "../store/store";
 import {
   deletePlaylist,
   getPlaylist,
   getUserPlaylistVideos,
-} from "@/store/slices/playlistSlice";
-import useActionHandler from "@/hooks/useActionHandler";
-import Skeleton from "@/component/Skeleton";
-import ErrorDialog from "@/component/error/ErrorDialog";
-import DropdownMenu from "@/component/CoreUI/DropdownMenu";
-import Button from "@/component/CoreUI/Button";
-import DeletePlaylistDialogButton from "@/component/playlist/DeletePlaylistDialogButton";
-import UpdatePlaylistDialog from "@/component/playlist/UpdatePlaylistDialog";
-import ScrollPagination from "@/component/ScrollPagination";
-import { Video } from "@/store/slices/videoSlice";
-import PlaylistVideoCard from "@/component/playlist/playlistVideo/PlaylistVideoCard";
-import PlaylistVideoSkeleton from "@/component/playlist/playlistVideo/PlaylistVideoSkeleton";
-import TextWithToggle from "@/component/CoreUI/TextWithToggle";
+} from "../store/slices/playlistSlice";
+import useActionHandler from "../hooks/useActionHandler";
+import Skeleton from "../components/Skeleton";
+import ErrorDialog from "../components/Error/ErrorDialog";
+import DropdownMenu from "../components/CoreUI/DropdownMenu";
+import Button from "../components/CoreUI/Button";
+import DeletePlaylistDialogButton from "../components/Playlist/DeletePlaylistDialogButton";
+import UpdatePlaylistDialog from "../components/Playlist/UpdatePlaylistDialog";
+import ScrollPagination from "../components/ScrollPagination";
+// import { Video } from "../store/slices/videoSlice";
+import PlaylistVideoCard from "../components/Playlist/playlistVideo/PlaylistVideoCard";
+import PlaylistVideoSkeleton from "../components/Playlist/playlistVideo/PlaylistVideoSkeleton";
+import TextWithToggle from "../components/CoreUI/TextWithToggle";
 
 export default function PlaylistVideos() {
   const navigate = useNavigate();

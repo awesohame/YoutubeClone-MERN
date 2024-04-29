@@ -7,14 +7,14 @@ import { FiMoreVertical } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { FaShare } from "react-icons/fa";
 
-import { Video } from "@/store/slices/videoSlice";
-import DropdownMenu from "@/component/CoreUI/DropdownMenu";
-import Button from "@/component/CoreUI/Button";
-import ShareDialog from "@/component/ShareDialog";
-import useActionHandler from "@/hooks/useActionHandler";
-import AddVideoToWatchLaterDialog from "@/component/watchLater/AddVideoToWatchLaterDialog";
-import { removeVideoFromPlaylist } from "@/store/slices/playlistSlice";
-import Modal from "@/component/CoreUI/Modal";
+// import { Video } from "../../../store/slices/videoSlice";
+import DropdownMenu from "../../CoreUI/DropdownMenu";
+import Button from "../../CoreUI/Button";
+import ShareDialog from "../../ShareDialog";
+import useActionHandler from "../../../hooks/useActionHandler";
+// import AddVideoToWatchLaterDialog from "../../../watchLater/AddVideoToWatchLaterDialog";
+import { removeVideoFromPlaylist } from "../../../store/slices/playlistSlice";
+import Modal from "../../CoreUI/Modal";
 
 const playlistVideoCard = ({ video, playlistId, idx }) => {
   const [
@@ -113,11 +113,11 @@ const playlistVideoCard = ({ video, playlistId, idx }) => {
           </Button>
         </div>
       </DropdownMenu>
-      <AddVideoToWatchLaterDialog
+      {/* <AddVideoToWatchLaterDialog
         open={isShowAddVideoToWatchLaterDialog}
         handleClose={() => setIsShowAddVideoToWatchLaterDialog(false)}
         videoId={video?._id}
-      />
+      /> */}
       <Modal
         open={isShowVideoRemoveConfirmDialog}
         handleClose={() => setIsShowVideoRemoveConfirmDialog(false)}

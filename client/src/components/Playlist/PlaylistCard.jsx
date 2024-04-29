@@ -12,7 +12,7 @@ import DeletePlaylistDialogButton from "./DeletePlaylistDialogButton";
 import UpdatePlaylistDialog from "./UpdatePlaylistDialog";
 
 export default function PlaylistCard({ playlist }) {
-  const [playlistDetails, setPlaylistDetails] = useState<Playlist>(playlist);
+  const [playlistDetails, setPlaylistDetails] = useState(playlist);
   const [
     isShowDeletePlaylistConfirmDialog,
     setIsShowDeletePlaylistConfirmDialog,
@@ -56,7 +56,7 @@ export default function PlaylistCard({ playlist }) {
         ) : (
           <div className="size-full bg-slate-300 dark:bg-[#404040] flex justify-center items-center">
             <p className="text-black dark:text-slate-100 text-lg font-nunito_sans font-semibold">
-              empty playlist
+              no thumbnail
             </p>
           </div>
         )}
