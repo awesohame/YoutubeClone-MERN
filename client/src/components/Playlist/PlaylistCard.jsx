@@ -4,10 +4,10 @@ import { IoIosMore } from "react-icons/io";
 import { MdDelete, MdLock } from "react-icons/md";
 import { FaGlobe } from "react-icons/fa";
 
-import { Playlist, deletePlaylist } from "@/store/slices/playlistSlice";
+import { deletePlaylist } from "../../store/slices/playlistSlice";
 import DropdownMenu from "../CoreUI/DropdownMenu";
 import Button from "../CoreUI/Button";
-import useActionHandler from "@/hooks/useActionHandler";
+import useActionHandler from "../../hooks/useActionHandler";
 import DeletePlaylistDialogButton from "./DeletePlaylistDialogButton";
 import UpdatePlaylistDialog from "./UpdatePlaylistDialog";
 

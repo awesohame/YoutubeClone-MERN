@@ -26,154 +26,153 @@ import AddVideoToPlaylistDialog from "../components/Playlist/AddVideoToPlaylistD
 import axiosInstance from "../helper/axiosInstance";
 
 export default function VideoPlayer() {
-    const navigate = useNavigate();
-    const { videoId } = useParams();
-    const [isShareVideoDialogOpen, setIsShareVideoDialogOpen] = useState(false);
-    const [isShowAddVideoToPlaylistDialog, setIsShowAddVideoToPlaylistDialog] =
-        useState(false);
-    const { video } = useSelector((state) => state?.video);
-    // console.log(video);
-    const { channel, user } = useSelector((state) => state?.auth);
-    const [likeCount, setLikeCount] = useState(0);
+  const navigate = useNavigate();
+  const { videoId } = useParams();
+  const [isShareVideoDialogOpen, setIsShareVideoDialogOpen] = useState(false);
+  const [isShowAddVideoToPlaylistDialog, setIsShowAddVideoToPlaylistDialog] =
+    useState(false);
+  const { video } = useSelector((state) => state?.video);
+  // console.log(video);
+  const { channel, user } = useSelector((state) => state?.auth);
+  const [likeCount, setLikeCount] = useState(0);
 
-    useEffect(() => {
-        const addToHistory = async () => {
-            try {
-                await axiosInstance.post(`/users/history/${videoId}`);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        addToHistory();
-        // console.log("added to history");
-    }, []);
-
-    useEffect(() => {
-        const fetchLikes = async () => {
-            // console.log(videoId);
-            const { data } = await axiosInstance.get(`/likes/${videoId}?type=video`);
-            // console.log(data);
-            const likeCount = data.data[0]?.totalLikes || 0;
-            setLikeCount(likeCount);
-        };
-        fetchLikes();
-
-    }, [videoId]);
-
-    // console.log(channel);
-    // console.log(video);
-
-    const {
-        isLoading: isFetchingVideo,
-        error: videoFetchingError,
-        handleAction: handleFetchVideoAction,
-    } = useActionHandler({
-        action: getVideoByVideoId,
-        isShowToastMessage: false,
-    });
-
-    const fetchVideo = async () => {
-        await handleFetchVideoAction(videoId);
+  useEffect(() => {
+    const addToHistory = async () => {
+      try {
+        await axiosInstance.post(`/users/history/${videoId}`);
+      } catch (error) {
+        console.log(error);
+      }
     };
+    addToHistory();
+    // console.log("added to history");
+  }, []);
 
-    const {
-        isLoading: isFetchingChannel,
-        error: channelFetchingError,
-        handleAction: handleFetchChannelAction,
-    } = useActionHandler({
-        action: getChannel,
-        isShowToastMessage: false,
-    });
-
-    const fetchChannel = async (username) => {
-        await handleFetchChannelAction(username);
+  useEffect(() => {
+    const fetchLikes = async () => {
+      // console.log(videoId);
+      const { data } = await axiosInstance.get(`/likes/${videoId}?type=video`);
+      // console.log(data);
+      const likeCount = data.data[0]?.totalLikes || 0;
+      setLikeCount(likeCount);
     };
+    fetchLikes();
+  }, [videoId]);
 
-    useEffect(() => {
-        fetchVideo();
-    }, [videoId]);
+  // console.log(channel);
+  // console.log(video);
 
-    useEffect(() => {
-        if (video?.owner?.username && !isFetchingVideo && video) {
-            fetchChannel(video?.owner?.username);
-        }
-    }, [isFetchingVideo, video?.owner?.username]);
+  const {
+    isLoading: isFetchingVideo,
+    error: videoFetchingError,
+    handleAction: handleFetchVideoAction,
+  } = useActionHandler({
+    action: getVideoByVideoId,
+    isShowToastMessage: false,
+  });
 
-    // console.log(channel)
+  const fetchVideo = async () => {
+    await handleFetchVideoAction(videoId);
+  };
 
-    return (
-        <Layout
-            byDefaultSidebarHidden={true}
-            className="flex gap-6 max-xl:flex-col max-xl:gap-14 md:px-8 md:pt-7 max-md:pb-16 pb-3"
-        >
-            {videoFetchingError ? (
-                <ErrorDialog
-                    errorMessage={videoFetchingError}
-                    buttonLabel="Try again"
-                    buttonOnClick={fetchVideo}
-                />
+  const {
+    isLoading: isFetchingChannel,
+    error: channelFetchingError,
+    handleAction: handleFetchChannelAction,
+  } = useActionHandler({
+    action: getChannel,
+    isShowToastMessage: false,
+  });
+
+  const fetchChannel = async (username) => {
+    await handleFetchChannelAction(username);
+  };
+
+  useEffect(() => {
+    fetchVideo();
+  }, [videoId]);
+
+  useEffect(() => {
+    if (video?.owner?.username && !isFetchingVideo && video) {
+      fetchChannel(video?.owner?.username);
+    }
+  }, [isFetchingVideo, video?.owner?.username]);
+
+  // console.log(channel)
+
+  return (
+    <Layout
+      byDefaultSidebarHidden={true}
+      className="flex gap-6 max-xl:flex-col max-xl:gap-14 md:px-8 md:pt-7 max-md:pb-16 pb-3"
+    >
+      {videoFetchingError ? (
+        <ErrorDialog
+          errorMessage={videoFetchingError}
+          buttonLabel="Try again"
+          buttonOnClick={fetchVideo}
+        />
+      ) : (
+        <>
+          {/* video and channel details */}
+          <div className="w-full">
+            {/* video player */}
+            {isFetchingVideo || !video ? (
+              <Skeleton className="md:h-[400px] sm:h-[300px] h-[250px] w-full rounded-lg" />
             ) : (
-                <>
-                    {/* video and channel details */}
-                    <div className="w-full">
-                        {/* video player */}
-                        {isFetchingVideo || !video ? (
-                            <Skeleton className="md:h-[400px] sm:h-[300px] h-[250px] w-full rounded-lg" />
-                        ) : (
-                            <video
-                                src={video?.videoFile}
-                                className="md:h-[400px] sm:h-[300px] w-full shadow-[10px_25px_150px_#e3e3e3] dark:shadow-[10px_25px_150px_#252525]"
-                                controls
-                            />
-                        )}
+              <video
+                src={video?.videoFile}
+                className="md:h-[400px] sm:h-[300px] w-full shadow-[10px_25px_150px_#e3e3e3] dark:shadow-[10px_25px_150px_#252525]"
+                controls
+              />
+            )}
 
-                        {/* video details */}
-                        <div className="w-full flex flex-col gap-5 md:px-3 max-md:px-3.5">
-                            {/* title */}
-                            {isFetchingVideo || !video ? (
-                                <Skeleton className="w-[80%] h-8 mt-5" />
-                            ) : (
-                                <h2 className="text-[20px] font-Noto_sans font-[600] text-[#0F0F0F] dark:text-[#F1F1F1]">
-                                    {video.title}
-                                </h2>
-                            )}
-                            {/* channel details */}
-                            <div className="flex md:justify-between md:items-center max-md:flex-col max-md:gap-10">
-                                {isFetchingChannel || !channel || channelFetchingError ? (
-                                    <div className="flex-grow flex gap-2">
-                                        <Skeleton className="size-10 rounded-full" />
-                                        <Skeleton className="h-5 md:w-[40%] w-[70%]" />
-                                    </div>
-                                ) : (
-                                    <div className="flex items-center max-md:flex-grow max-md:w-full max-md:justify-between md:gap-4 gap-7">
-                                        <div className="flex gap-2.5 items-center flex-grow truncate">
-                                            <Avatar
-                                                fullName={channel?.userame}
-                                                url={channel?.avatar}
-                                                className="size-10"
-                                                onClick={() =>
-                                                    navigate(`/channel/${channel?.username}`, {
-                                                        state: { channel },
-                                                    })
-                                                }
-                                            />
-                                            <div className="flex flex-col flex-grow truncate">
-                                                <h3 className="text-[16px] font-Noto_sans font-[600] text-[#0F0F0F] dark:text-[#F1F1F1] leading-4 w-full truncate">
-                                                    {channel?.username}
-                                                </h3>
-                                                <p className="text-[13px] text-zinc-600 dark:text-[#AAAAAA] font-semibold leading-0 truncate">
-                                                    {abbreviateNumber(channel?.subscribersCount || 0, 1)}{" "}
-                                                    {channel?.subscribersCount || 0 <= 1
-                                                        ? "Subscriber"
-                                                        : "Subscribers"}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <SubscribeBtn
-                                            channelId={channel?._id}
-                                            isSubscribed={channel?.isSubscribed}
-                                        />
-                                        {/* {channel?._id === user?._id && (
+            {/* video details */}
+            <div className="w-full flex flex-col gap-5 md:px-3 max-md:px-3.5">
+              {/* title */}
+              {isFetchingVideo || !video ? (
+                <Skeleton className="w-[80%] h-8 mt-5" />
+              ) : (
+                <h2 className="text-[20px] font-Noto_sans font-[600] text-[#0F0F0F] dark:text-[#F1F1F1]">
+                  {video.title}
+                </h2>
+              )}
+              {/* channel details */}
+              <div className="flex md:justify-between md:items-center max-md:flex-col max-md:gap-10">
+                {isFetchingChannel || !channel || channelFetchingError ? (
+                  <div className="flex-grow flex gap-2">
+                    <Skeleton className="size-10 rounded-full" />
+                    <Skeleton className="h-5 md:w-[40%] w-[70%]" />
+                  </div>
+                ) : (
+                  <div className="flex items-center max-md:flex-grow max-md:w-full max-md:justify-between md:gap-4 gap-7">
+                    <div className="flex gap-2.5 items-center flex-grow truncate">
+                      <Avatar
+                        fullName={channel?.userame}
+                        url={channel?.avatar}
+                        className="size-10"
+                        onClick={() =>
+                          navigate(`/channel/${channel?.username}`, {
+                            state: { channel },
+                          })
+                        }
+                      />
+                      <div className="flex flex-col flex-grow truncate">
+                        <h3 className="text-[16px] font-Noto_sans font-[600] text-[#0F0F0F] dark:text-[#F1F1F1] leading-4 w-full truncate">
+                          {channel?.username}
+                        </h3>
+                        <p className="text-[13px] text-zinc-600 dark:text-[#AAAAAA] font-semibold leading-0 truncate">
+                          {abbreviateNumber(channel?.subscribersCount || 0, 1)}{" "}
+                          {channel?.subscribersCount || 0 <= 1
+                            ? "Subscriber"
+                            : "Subscribers"}
+                        </p>
+                      </div>
+                    </div>
+                    <SubscribeBtn
+                      channelId={channel?._id}
+                      isSubscribed={channel?.isSubscribed}
+                    />
+                    {/* {channel?._id === user?._id && (
                                             <Button
                                                 className="rounded-lg text-[15px] font-roboto py-2"
                                                 isGradientBg
@@ -183,91 +182,91 @@ export default function VideoPlayer() {
                                                 Dashboard
                                             </Button>
                                         )} */}
-                                    </div>
-                                )}
+                  </div>
+                )}
 
-                                {/* like, share, and save to playlist button */}
-                                {!isFetchingVideo && video && (
-                                    <div className="flex gap-3 max-md:w-full max-md:whitespace-nowrap max-md:overflow-x-scroll max-md:no-scrollbar">
-                                        {/* like button */}
-                                        <LikeBtn
-                                            contentId={video._id}
-                                            isLiked={video.isLiked}
-                                            likeCount={likeCount}
-                                            toggleLikeAction={toggleVideoLike}
-                                        />
-                                        {/* share button */}
-                                        <Button
-                                            className="bg-slate-200 dark:bg-[#272727] text-black dark:text-white rounded-full hover:opacity-1 hover:bg-slate-300 dark:hover:bg-[#505050] max-md:py-2"
-                                            icon={<FaShare />}
-                                            onClick={() => setIsShareVideoDialogOpen((prev) => !prev)}
-                                        >
-                                            Share
-                                        </Button>
-                                        <ShareDialog
-                                            open={isShareVideoDialogOpen}
-                                            handleClose={() => setIsShareVideoDialogOpen(false)}
-                                            url={document.URL}
-                                        />
-                                        {/* save to playlist button */}
-                                        <Button
-                                            className="bg-slate-200 dark:bg-[#272727] text-black dark:text-white rounded-full hover:opacity-1 hover:bg-slate-300 dark:hover:bg-[#505050] max-md:py-2"
-                                            icon={<BiSolidPlaylist />}
-                                            onClick={() =>
-                                                setIsShowAddVideoToPlaylistDialog((prev) => !prev)
-                                            }
-                                        >
-                                            Save to Playlist
-                                        </Button>
-                                        <AddVideoToPlaylistDialog
-                                            open={isShowAddVideoToPlaylistDialog}
-                                            handleClose={() =>
-                                                setIsShowAddVideoToPlaylistDialog(false)
-                                            }
-                                            videoId={video?._id}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* video description */}
-                            {isFetchingVideo || !video ? (
-                                <Skeleton className="w-full h-16 rounded-lg" />
-                            ) : (
-                                <div className="w-full flex flex-col gap-3 md:mt-3 mt-5 rounded-lg bg-slate-200 dark:bg-[#172227] p-3">
-                                    <p className="flex gap-3 items-center text-base text-black dark:text-white">
-                                        <span>{abbreviateNumber(video?.views, 1)} views</span>
-                                        <TimeAgo date={video?.createdAt} />
-                                    </p>
-                                    <TextWithToggle
-                                        initialShowLine={3}
-                                        className="text-sm font-roboto text-gray-800 dark:text-slate-200"
-                                    >
-                                        {video?.description || "No Description"}
-                                    </TextWithToggle>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* comments */}
-                    <div
-                        className={twMerge(
-                            "xl:w-[645px] w-full rounded-md min-h-full pb-5 px-3 max-md:px-3.5 dark:md:bg-[#0f0f0f]",
-                            !isFetchingVideo &&
-                            video && [
-                                "md:shadow-[10px_25px_150px_#e3e3e3] md:dark:shadow-[50px_-15px_150px_#333333] md:px-4",
-                            ]
-                        )}
+                {/* like, share, and save to playlist button */}
+                {!isFetchingVideo && video && (
+                  <div className="flex gap-3 max-md:w-full max-md:whitespace-nowrap max-md:overflow-x-scroll max-md:no-scrollbar">
+                    {/* like button */}
+                    <LikeBtn
+                      contentId={video._id}
+                      isLiked={video.isLiked}
+                      likeCount={likeCount}
+                      toggleLikeAction={toggleVideoLike}
+                    />
+                    {/* share button */}
+                    <Button
+                      className="bg-slate-200 dark:bg-[#272727] text-black dark:text-white rounded-full hover:opacity-1 hover:bg-slate-300 dark:hover:bg-[#505050] max-md:py-2"
+                      icon={<FaShare />}
+                      onClick={() => setIsShareVideoDialogOpen((prev) => !prev)}
                     >
-                        {isFetchingVideo || !video ? (
-                            <Skeleton className="w-full h-full max-lg:h-[450px] rounded-lg" />
-                        ) : (
-                            <CommentBox contentId={video._id} type="video" />
-                        )}
-                    </div>
-                </>
+                      Share
+                    </Button>
+                    <ShareDialog
+                      open={isShareVideoDialogOpen}
+                      handleClose={() => setIsShareVideoDialogOpen(false)}
+                      url={document.URL}
+                    />
+                    {/* save to playlist button */}
+                    <Button
+                      className="bg-slate-200 dark:bg-[#272727] text-black dark:text-white rounded-full hover:opacity-1 hover:bg-slate-300 dark:hover:bg-[#505050] py-2"
+                      icon={<BiSolidPlaylist />}
+                      onClick={() =>
+                        setIsShowAddVideoToPlaylistDialog(true)
+                      }
+                    >
+                      Save to Playlist
+                    </Button>
+                    <AddVideoToPlaylistDialog
+                      open={isShowAddVideoToPlaylistDialog}
+                      handleClose={() =>
+                        setIsShowAddVideoToPlaylistDialog(false)
+                      }
+                      videoId={video?._id}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* video description */}
+              {isFetchingVideo || !video ? (
+                <Skeleton className="w-full h-16 rounded-lg" />
+              ) : (
+                <div className="w-full flex flex-col gap-3 md:mt-3 mt-5 rounded-lg bg-slate-200 dark:bg-[#172227] p-3">
+                  <p className="flex gap-3 items-center text-base text-black dark:text-white">
+                    <span>{abbreviateNumber(video?.views, 1)} views</span>
+                    <TimeAgo date={video?.createdAt} />
+                  </p>
+                  <TextWithToggle
+                    initialShowLine={3}
+                    className="text-sm font-roboto text-gray-800 dark:text-slate-200"
+                  >
+                    {video?.description || "No Description"}
+                  </TextWithToggle>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* comments */}
+          <div
+            className={twMerge(
+              "xl:w-[645px] w-full rounded-md min-h-full pb-5 px-3 max-md:px-3.5 dark:md:bg-[#0f0f0f]",
+              !isFetchingVideo &&
+                video && [
+                  "md:shadow-[10px_25px_150px_#e3e3e3] md:dark:shadow-[50px_-15px_150px_#333333] md:px-4",
+                ]
             )}
-        </Layout>
-    );
+          >
+            {isFetchingVideo || !video ? (
+              <Skeleton className="w-full h-full max-lg:h-[450px] rounded-lg" />
+            ) : (
+              <CommentBox contentId={video._id} type="video" />
+            )}
+          </div>
+        </>
+      )}
+    </Layout>
+  );
 }

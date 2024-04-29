@@ -102,7 +102,7 @@ const addVideoToPlaylist = createAsyncThunk(
     ) => {
         try {
             //add video to playlist
-            const res = await axiosInstance.post(`/playlists/add/${videoId}/${playlistId}`);
+            const res = await axiosInstance.patch(`/playlist/add/${videoId}/${playlistId}`);
             return res?.data;
         } catch (error) {
             if (!error.response) {

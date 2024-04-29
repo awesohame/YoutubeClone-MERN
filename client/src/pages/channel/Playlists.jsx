@@ -8,7 +8,7 @@ import { getUserPlaylists } from "../../store/slices/playlistSlice";
 import useActionHandler from "../../hooks/useActionHandler";
 import EmptyMessage from "../../components/EmptyMessage";
 import PlaylistSkeleton from "../../components/Playlist/PlaylistSkeleton";
-// import PlaylistCard from "../../components/Playlist/PlaylistCard";
+import PlaylistCard from "../../components/Playlist/PlaylistCard";
 import CreatePlaylistDialog from "../../components/Playlist/CreatePlaylistDialog";
 import Button from "../../components/Core/Button";
 
@@ -36,14 +36,15 @@ export default function Playlists() {
             userId: channel?._id,
             queryParams: { page, limit },
         });
-
-        if (isSuccess && resData?.result) {
-            const newPlaylists = resData.result.docs;
-            setPlaylists(page === 1 ? newPlaylists : [...playlists, ...newPlaylists]);
-            setCurrPage(resData.result.page);
-            setTotalPages(resData.result.totalPages);
-            setTotalDocs(resData.result.totalDocs);
-            setHasNextPage(resData.result.hasNextPage);
+        // console.log(isSuccess);
+        console.log(resData);
+        if (isSuccess && resData) {
+            const newPlaylists = resData;
+            setPlaylists(newPlaylists);
+            // setCurrPage(resData.result.page);
+            // setTotalPages(resData.result.totalPages);
+            // setTotalDocs(resData.result.totalDocs);
+            // setHasNextPage(resData.result.hasNextPage);
         }
     };
 
@@ -57,7 +58,6 @@ export default function Playlists() {
         ));
     };
 
-    // fetch initial playlists
     useEffect(() => {
         fetchUserPlaylists(1);
     }, [channel?._id]);
@@ -108,8 +108,6 @@ export default function Playlists() {
             </div>
             <div className="w-full flex flex-wrap md:gap-10 gap-x-4 gap-y-5 max-lg:px-1 py-5 max-md:pb-12">
                 {!playlists.length &&
-                    totalDocs === 0 &&
-                    totalPages === 1 &&
                     !isLoading ? (
                     <EmptyMessage
                         message="empty playlists"
@@ -118,8 +116,8 @@ export default function Playlists() {
                     />
                 ) : (
                     playlists?.map((playlist) => (
-                        // <PlaylistCard key={playlist?._id} playlist={playlist} />
-                        <></>
+                        <PlaylistCard key={playlist?._id} playlist={playlist} />
+                        // <></>
                     ))
                 )}
                 {(isLoading || !channel?._id) && renderSkeletons()}

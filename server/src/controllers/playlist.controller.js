@@ -42,8 +42,8 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
 
   if (!userPlaylists || userPlaylists.length === 0) {
     return res
-      .status(404)
-      .json(new ApiResponse(404, null, "No playlists found for the user."));
+      .status(200)
+      .json(new ApiResponse(200, null, "No playlists found for the user."));
   }
 
   return res

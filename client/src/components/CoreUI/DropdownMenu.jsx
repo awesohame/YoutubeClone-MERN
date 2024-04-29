@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode, useRef, useState } from "react";
 
-import useClickOutside from "@/hooks/useClickOutside";
+import useClickOutside from "../../hooks/useClickOutside";
 import { twMerge } from "tailwind-merge";
 
 const DropdownMenu = ({ triggerButton, className, children }) => {
