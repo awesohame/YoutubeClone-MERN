@@ -8,6 +8,7 @@ import sidebarSlice from "./slices/sidebarSlice";
 import subscriptionSlice from "./slices/subscriptionSlice";
 import likeSlice from "./slices/likeSlice";
 import commentSlice from "./slices/commentSlice";
+import watchHistorySlice from "./slices/watchHistorySlice";
 
 export const store = configureStore({
     reducer: {
@@ -20,6 +21,8 @@ export const store = configureStore({
         comment: commentSlice,
         sidebar: sidebarSlice,
         appLoading: appLoadingSlice,
+        watch_history: watchHistorySlice,
+
     },
 })
 

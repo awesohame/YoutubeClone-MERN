@@ -20,6 +20,7 @@ import Create from "./pages/Create";
 // import PlaylistVideos from "./pages/PlaylistVideos"; 
 import VideoPlayer from "./pages/VideoPlayer";
 import Subscriptions from './pages/Subscriptions';
+import WatchHistory from './pages/WatchHistory';
 
 //test imports
 
@@ -64,6 +65,7 @@ function App() {
       <Route path="/account" element={<Account />} />
 
       <Route path="/subscriptions" element={<Subscriptions />} />
+      <Route path="/history" element={<WatchHistory />} />
 
       <Route path="/channel/:username" element={<ChannelLayout />}>
         <Route path="" element={<Channel />} />

@@ -73,7 +73,7 @@ export default function Subscriptions() {
                         </h1>
                         {subscribedChannelLists.map(
                             (channel) => {
-                                console.log(channel);
+                                // console.log(channel);
                                 return (
                                     <div
                                         key={channel?.channel?._id}

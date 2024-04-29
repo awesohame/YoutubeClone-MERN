@@ -37,6 +37,18 @@ export default function VideoPlayer() {
     const [likeCount, setLikeCount] = useState(0);
 
     useEffect(() => {
+        const addToHistory = async () => {
+            try {
+                await axiosInstance.post(`/users/history/${videoId}`);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        addToHistory();
+        // console.log("added to history");
+    }, []);
+
+    useEffect(() => {
         const fetchLikes = async () => {
             // console.log(videoId);
             const { data } = await axiosInstance.get(`/likes/${videoId}?type=video`);
