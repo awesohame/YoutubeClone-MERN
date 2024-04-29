@@ -33,7 +33,7 @@ export default function VideoCard({
                 <div className="flex gap-2">
                     <div className="flex gap-2 flex-grow">
                         <Avatar
-                            fullName={data?.owner?.fullName}
+                            fullName={data?.owner?.fullname}
                             url={data?.owner?.avatar}
                             onClick={() => navigate(`/c/${data?.owner?.username}`)}
                             className="h-8 w-8"
@@ -43,7 +43,7 @@ export default function VideoCard({
                                 {data?.title}
                             </h1>
                             <p className="text-sm text-[#606060] dark:text-[#AAAAAA] font-roboto font-normal leading-tight">
-                                {data?.owner?.fullName}
+                                {data?.owner?.fullname}
                             </p>
                             <p className="text-sm text-[#606060] dark:text-[#AAAAAA] font-roboto font-normal leading-none">
                                 {abbreviateNumber(data?.views, 1)} views{" · "}
