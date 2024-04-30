@@ -35,7 +35,7 @@ export default function VideoCard({
                         <Avatar
                             fullName={data?.owner?.fullname}
                             url={data?.owner?.avatar}
-                            onClick={() => navigate(`/c/${data?.owner?.username}`)}
+                            onClick={() => navigate(`/channel/${data?.owner?.username}`)}
                             className="h-8 w-8"
                         />
                         <div className="flex flex-col gap-[1px]">

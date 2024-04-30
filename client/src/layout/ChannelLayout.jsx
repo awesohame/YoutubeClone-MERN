@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
@@ -17,7 +17,12 @@ export default function ChannelLayout() {
     const location = useLocation();
     let { channel } = useSelector((state) => state?.auth);
 
+    const [anish, setAnish] = useState(channel?.isSubscribed)
     // console.log(channel);
+
+    // useEffect(() => {
+    //     setSubscribersCount(channel?.subscribersCount || 0);
+    // }, [channel]);
 
     const { error, isLoading, handleAction } = useActionHandler({
         action: getChannel,
@@ -29,12 +34,8 @@ export default function ChannelLayout() {
     }
 
     useEffect(() => {
-        if (location?.state?.channel) {
-            channel = location?.state?.channel
-        } else {
-            fetchChannel();
-        }
-    }, [username]);
+        fetchChannel();
+    }, [username, anish]);
 
     const channelTabsLink = [
         {
@@ -69,6 +70,8 @@ export default function ChannelLayout() {
         </div>
     );
 
+    console.log(channel)
+
     return (
         <Layout className="md:px-4 px-2 flex flex-col gap-6">
             {error ? (
@@ -98,7 +101,7 @@ export default function ChannelLayout() {
                             <div className="flex md:gap-14 gap-5">
                                 <Avatar
                                     url={channel?.avatar}
-                                    fullName={channel?.fullname}
+                                    fullname={channel?.fullname}
                                     className="md:h-36 h-20 md:w-36 w-20"
                                 />
 
@@ -106,9 +109,9 @@ export default function ChannelLayout() {
                                     {/* Channel name */}
                                     <h1
                                         className="md:text-4xl text-xl text-black dark:text-white font-bold"
-                                        title={channel?.fullName}
+                                        title={channel?.fullname}
                                     >
-                                        {channel?.fullName}
+                                        {channel?.fullname}
                                     </h1>
 
                                     {/* Username and subscriber/video count */}
@@ -116,8 +119,8 @@ export default function ChannelLayout() {
                                         {channel?.username}
                                     </p>
                                     <p className="md:text-lg text-sm text-zinc-600 dark:text-[#AAAAAA] font-semibold leading-loose">
-                                        {abbreviateNumber(channel?.subscriberCount || 0, 1)}{" "}
-                                        {channel?.subscriberCount || 0 <= 1
+                                        {abbreviateNumber(channel?.subscribersCount || 0, 1)}{" "}
+                                        {channel?.subscribersCount || 0 <= 1
                                             ? "Subscriber"
                                             : "Subscribers"}{" "}
                                         {" • "}
@@ -125,10 +128,17 @@ export default function ChannelLayout() {
                                         {channel?.videoCount || 0 <= 1 ? "video" : "videos"}
                                     </p>
                                     {/* subscribe button */}
-                                    <SubscribeBtn
-                                        isSubscribed={channel?.isSubscribed || false}
-                                        channelId={channel?._id || ""}
-                                    />
+                                    <div
+                                        onClick={() => {
+                                            setAnish((prev) => !prev);
+                                        }}
+                                    >
+
+                                        <SubscribeBtn
+                                            isSubscribed={channel?.isSubscribed || false}
+                                            channelId={channel?._id || ""}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </>
