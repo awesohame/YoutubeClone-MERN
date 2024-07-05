@@ -34,7 +34,7 @@ export default function WatchHistory() {
     useEffect(() => {
         const fetchWatchHistory = async () => {
             try {
-                const res = await axios.get("/api/v1/users/history");
+                const res = await axios.get("/users/history");
                 // console.log(res?.data?.data);
                 setWatchHistories(res?.data?.data);
             } catch (error) {

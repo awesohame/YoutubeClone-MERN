@@ -14,7 +14,7 @@ export default function LogoutBtn({
 
     const handleLogout = async () => {
         // LOGIC TO LOGOUT
-        const response = await axios.post("/api/v1/users/logout");
+        const response = await axios.post("/users/logout");
         // console.log(response.data);
         if (response.data.statusCode === 200) {
             localStorage.removeItem("authToken");
