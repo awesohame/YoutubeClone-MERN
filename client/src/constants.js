@@ -1,4 +1,4 @@
 export const navHeight = "56px"
 export const sidebarWidth = "245px"
 
-export const apiURL = "http://localhost:8000/api/v1"
+export const apiURL = "https://youtube-clone-mern-server-ago67nej0-sohams-projects-fe041e91.vercel.app/"
