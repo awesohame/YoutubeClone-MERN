@@ -59,7 +59,7 @@ const Home = () => {
                 totalItems={totalDocs}
                 endMessage={
                     <p className="py-4 text-lg text-gray-800 dark:text-white text-center font-Noto_sans">
-                        No more videos to fetch !!!
+                        No more videos to fetch.
                     </p>
                 }
             >

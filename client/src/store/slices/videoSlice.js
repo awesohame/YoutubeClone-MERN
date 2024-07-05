@@ -97,6 +97,7 @@ const videoSlice = createSlice({
             state.videos = action.payload;
         },
     },
+
     extraReducers: (builder) => {
         builder
             .addCase(getAllVideos.pending, (state) => {

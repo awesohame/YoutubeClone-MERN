@@ -6,7 +6,7 @@ import TweetCreateForm from "../components/CreateForms/TweetCreateForm";
 export default function Create() {
     const tabs = [
         { label: "Video", component: <VideoCreateForm /> },
-        { label: "Tweet", component: <TweetCreateForm /> },
+        // { label: "Tweet", component: <TweetCreateForm /> },
     ];
 
     return (
