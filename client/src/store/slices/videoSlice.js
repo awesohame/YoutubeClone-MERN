@@ -20,8 +20,10 @@ const createVideo = createAsyncThunk(
         { rejectWithValue }
     ) => {
         try {
-            const res = await axiosInstance.post("/videos", data, {
+            const res = await axios("https://youtube-clone-mern-server-iota.vercel.app/api/v1/videos", data, {
                 headers: { "Content-Type": "multipart/form-data" },
+                method: "POST",
+                withCredentials: true,
             });
             return res.data;
         } catch (error) {
