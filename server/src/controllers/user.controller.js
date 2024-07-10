@@ -170,7 +170,9 @@ const logoutUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: true, // Keep this true for HTTPS
+    sameSite: 'None', // Required for cross-origin cookies
+    domain: 'youtube-clone-mern-server-iota.vercel.app' // Optional, set to your backend domain
   };
 
   return res
