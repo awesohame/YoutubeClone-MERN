@@ -9,7 +9,9 @@ cloudinary.config({
 
 const uploadOnCloudinary = async function (localFilePath) {
   try {
+    console.log("Local file path:", localFilePath);
     if (!localFilePath) return null;
+
 
     //uploading the file
     const response = await cloudinary.uploader.upload(localFilePath, {
@@ -18,10 +20,10 @@ const uploadOnCloudinary = async function (localFilePath) {
     });
 
     //file has been uploaded
-    fs.unlinkSync(localFilePath);
+    fs.unlinkSync(`${process.cwd()}/${localFilePath}`);
     return response;
   } catch (error) {
-    fs.unlinkSync(localFilePath); //remove the temp file from the server if the upload on the cloud failed
+    fs.unlinkSync(`${process.cwd()}/${localFilePath}`); //remove the temp file from the server if the upload on the cloud failed
     return null;
   }
 };

@@ -1,5 +1,6 @@
 import axiosInstance from "../../helper/axiosInstance";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";4
+import { apiURL } from "../../constants";
 
 
 const initialState = {
@@ -20,7 +21,7 @@ const createVideo = createAsyncThunk(
         { rejectWithValue }
     ) => {
         try {
-            const res = await axios("https://youtube-clone-mern-server-iota.vercel.app/api/v1/videos", data, {
+            const res = await axios(`${apiURL}/videos`, data, {
                 headers: { "Content-Type": "multipart/form-data" },
                 method: "POST",
                 withCredentials: true,
