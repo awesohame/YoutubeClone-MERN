@@ -71,20 +71,26 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (!avatarLocalPath) throw new ApiError(400, "Avatar file is required"); //as avatar is required
 
+  console.log("Avatar local path:", avatarLocalPath);
+
   const avatarOnCloud = await uploadOnCloudinary(avatarLocalPath);
   const coverImageOnCloud = await uploadOnCloudinary(coverImageLocalPath);
 
   if (!avatarOnCloud)
     throw new ApiError(400, "Avatar was not uploaded on the cloudinary");
 
-  const user = await User.create({
+  const data = {
     fullname,
     avatar: avatarOnCloud.url,
     coverImage: coverImageOnCloud?.url || "",
     email,
     password,
     username: username.toLowerCase(),
-  });
+  }
+
+  console.log("Data:", data);
+
+  const user = await User.create(data);
 
   // we are checking if the user was created and instructing to not send password and refreshToken along with other fields in the response
   const createdUser = await User.findById(user._id).select(
